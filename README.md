@@ -36,6 +36,9 @@ This is a full-stack Django project built for online car booking.
 - `static/` - static assets, CSS, images
 - `db.sqlite3` - local database
 
+<img width="1847" height="862" alt="image" src="https://github.com/user-attachments/assets/3609b66c-f3ba-4684-8533-8e040bfef70e" />
+ 
+
 ## 🚀 Run Locally
 
 1. Clone the repo:
