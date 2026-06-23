@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -67,8 +66,6 @@ class VehicleDetailView(DetailView):
         )
         
         # Get unavailable dates for this vehicle (optional, for calendar UI)
-        # This would require a more complex booking overlap detection
-        # For now, we just note that bookings are checked in the form's clean() method
         booked_dates = Booking.objects.filter(
             vehicle=self.object,
             status__in=['confirmed', 'completed'],
@@ -108,13 +105,11 @@ class BookingCreateView(CreateView):
         
         data = form.cleaned_data
         
-        # Get data, providing an empty string as a default
         name = data.get('customer_name', '')
         phone = data.get('phone', '')
         pickup_location = data.get('pickup_location', '')
         drop_location = data.get('drop_location', '')
         
-        # Format date and time, handling None cases
         pickup_date_str = data['pickup_date'].strftime('%d %B, %Y') if data.get('pickup_date') else ''
         pickup_time_str = data['pickup_time'].strftime('%I:%M %p') if data.get('pickup_time') else ''
 
@@ -140,22 +135,15 @@ class BookingCreateView(CreateView):
     def form_valid(self, form):
         """On valid form, redirect to WhatsApp with pre-filled message."""
         
-        # Build the formatted message
         message = self._build_whatsapp_message(form)
-        
-        # Get the business WhatsApp number from settings
         whatsapp_number = settings.BUSINESS_WHATSAPP
-        
-        # Create the WhatsApp URL
         whatsapp_url = f"https://wa.me/{whatsapp_number}?" + urlencode({'text': message}, encoding='utf-8')
         
-        # Add a success message for the user
         messages.success(
             self.request,
             "✅ Your booking request has been sent! You will now be redirected to WhatsApp to confirm."
         )
         
-        # Redirect the user
         return HttpResponseRedirect(whatsapp_url)
 
     def form_invalid(self, form):
@@ -208,7 +196,6 @@ class CancelBookingView(View):
         """Handle booking cancellation."""
         booking = get_object_or_404(Booking, pk=pk)
         
-        # Verify the requester knows booking details (phone + email)
         request_phone = request.POST.get('phone', '').strip()
         request_email = request.POST.get('email', '').strip()
         
@@ -220,7 +207,6 @@ class CancelBookingView(View):
             messages.error(request, '❌ Invalid email.')
             return redirect('booking:booking_tracking')
         
-        # Allow cancellation only for pending or confirmed bookings
         if booking.status not in ['pending', 'confirmed']:
             messages.warning(
                 request,
@@ -228,7 +214,6 @@ class CancelBookingView(View):
             )
             return redirect('booking:booking_tracking')
         
-        # Cancel the booking
         booking.status = 'cancelled'
         booking.save(update_fields=['status', 'updated_at'])
         
@@ -237,7 +222,7 @@ class CancelBookingView(View):
             '✅ Your booking has been cancelled successfully.',
         )
         
-        logger.info(f'Booking #{booking.pk} cancelled by customer ({booking.phone})')
+        # logger.info(f'Booking #{booking.pk} cancelled by customer ({booking.phone})')
         
         return redirect('booking:booking_tracking')
 
@@ -278,149 +263,3 @@ class ContactView(CreateView):
         if 'form' not in context:
             context['form'] = self.get_form()
         return context
-=======
-import urllib.parse
-from datetime import datetime, timedelta
-
-from django.shortcuts import render
-from django.utils import timezone
-
-from geopy.distance import geodesic
-from geopy.geocoders import Nominatim
-
-from .models import Booking, Car
-
-
-def home(request):
-    return render(request, 'home.html')
-
-
-def book(request):
-    context = {
-        'form_data': {
-            'name': '',
-            'phone': '',
-            'pickup': '',
-            'drop': '',
-            'start_time': '',
-            'hours': '2',
-        }
-    }
-
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        pickup = request.POST.get('pickup')
-        drop = request.POST.get('drop')
-        start_time_raw = request.POST.get('start_time')
-        hours = request.POST.get('hours', '2')
-
-        context['form_data'] = {
-            'name': name or '',
-            'phone': phone or '',
-            'pickup': pickup or '',
-            'drop': drop or '',
-            'start_time': start_time_raw or '',
-            'hours': hours or '2',
-        }
-
-        if not name or not phone or not pickup or not drop or not start_time_raw:
-            context['error'] = 'All fields fill karna zaroori hai.'
-            return render(request, 'book.html', context)
-
-        try:
-            duration_hours = int(hours)
-        except (TypeError, ValueError):
-            context['error'] = 'Trip duration valid number me dalo.'
-            return render(request, 'book.html', context)
-
-        if duration_hours < 1 or duration_hours > 24:
-            context['error'] = 'Trip duration 1 se 24 ghante ke beech honi chahiye.'
-            return render(request, 'book.html', context)
-
-        try:
-            start_time = datetime.strptime(start_time_raw, "%Y-%m-%dT%H:%M")
-            start_time = timezone.make_aware(start_time)
-        except ValueError:
-            context['error'] = 'Start time sahi format me select karo.'
-            return render(request, 'book.html', context)
-
-        if start_time < timezone.now():
-            context['error'] = 'Past time ke liye booking nahi ho sakti.'
-            return render(request, 'book.html', context)
-
-        end_time = start_time + timedelta(hours=duration_hours)
-
-        geolocator = Nominatim(user_agent="choudhary_travels")
-        try:
-            pickup_location = geolocator.geocode(pickup)
-            drop_location = geolocator.geocode(drop)
-            if not pickup_location or not drop_location:
-                context['error'] = 'Pickup ya drop location nahi mili. Thoda detailed address dalo.'
-                return render(request, 'book.html', context)
-            distance = geodesic(
-                (pickup_location.latitude, pickup_location.longitude),
-                (drop_location.latitude, drop_location.longitude),
-            ).km
-        except Exception:
-            context['error'] = 'Distance calculate nahi ho paayi. Thodi der baad dobara try karo.'
-            return render(request, 'book.html', context)
-
-        car = Car.objects.filter(is_available=True).first()
-        if not car:
-            context['error'] = 'Abhi koi car available nahi hai.'
-            return render(request, 'book.html', context)
-
-        conflict = Booking.objects.filter(
-            car=car,
-            start_time__lt=end_time,
-            end_time__gt=start_time,
-        ).exclude(status='Cancelled').exists()
-
-        if conflict:
-            context['error'] = 'Is time slot me car available nahi hai.'
-            return render(request, 'book.html', context)
-
-        total_price = int(round(distance * 20))
-
-        Booking.objects.create(
-            name=name,
-            phone=phone,
-            pickup=pickup,
-            drop=drop,
-            start_time=start_time,
-            end_time=end_time,
-            car=car,
-            total_price=total_price,
-        )
-
-        message = f"""New Booking:
-Name: {name}
-Phone: {phone}
-Pickup: {pickup}
-Drop: {drop}
-Distance: {distance:.2f} km
-Start: {start_time}
-Duration: {duration_hours} hours
-Price: Rs. {total_price}"""
-
-        encoded_msg = urllib.parse.quote(message)
-        whatsapp_url = f"https://wa.me/919755422892?text={encoded_msg}"
-
-        return render(request, 'book.html', {
-            'success': True,
-            'whatsapp_url': whatsapp_url,
-            'booking_summary': {
-                'car': car.name,
-                'distance': f"{distance:.2f}",
-                'price': total_price,
-                'hours': duration_hours,
-            },
-        })
-
-    return render(request, 'book.html', context)
-
-
-def about(request):
-    return render(request, 'about.html')
->>>>>>> 85581e2fb793ac61c7fcc6a98dec5ac5ab2ee5b8

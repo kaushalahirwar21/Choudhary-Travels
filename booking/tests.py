@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 Django tests for the booking application.
 Run tests with: python manage.py test booking
@@ -449,8 +448,3 @@ class ContactViewTests(TestCase):
         response = self.client.post('/contact/', data)
         self.assertEqual(response.status_code, 200)  # Form re-rendered
         self.assertEqual(ContactMessage.objects.count(), 0)
-=======
-from django.test import TestCase
-
-# Create your tests here.
->>>>>>> 85581e2fb793ac61c7fcc6a98dec5ac5ab2ee5b8
