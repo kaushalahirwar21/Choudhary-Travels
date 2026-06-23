@@ -67,12 +67,17 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-DATABASE_URL = config('DATABASE_URL', default='')
+
+# Check for Vercel's Postgres URL first
+DATABASE_URL = os.environ.get('POSTGRES_URL')
+
 if DATABASE_URL:
+    # Production: Use Vercel Postgres
     DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600),
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
 else:
+    # Development: Use local SQLite database
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
