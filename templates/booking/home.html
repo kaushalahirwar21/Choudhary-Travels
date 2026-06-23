@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home — {{ business_name }}{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero-section hero-light">
+    <div class="container">
+        <div class="row align-items-center gy-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <span class="hero-small-text">Trusted, Safe & Comfortable</span>
+                <h1 class="hero-title hero-title-light">Ride Easy Ride Choudhary's</h1>
+                <p class="hero-subtitle hero-subtitle-light">Safe, affordable rides.</p>
+                <a href="{% url 'booking:book' %}" class="btn btn-hero btn-lg mt-4">Book Now</a>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="hero-image-card">
+                    <img src="{% static 'images/car1.jpg' %}" alt="Modern SUV" class="img-fluid hero-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="section-padding bg-light why-section">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Why Choose Us</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="why-card h-100">
+                    <div class="why-icon">💰</div>
+                    <h5>Affordable Pricing</h5>
+                    <p>No hidden charges. Transparent pricing.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="why-card h-100">
+                    <div class="why-icon">⏱️</div>
+                    <h5>Reliable Service</h5>
+                    <p>On-time pickup and safe travel experience.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="why-card h-100">
+                    <div class="why-icon">📲</div>
+                    <h5>Easy Booking</h5>
+                    <p>Simple and fast booking process.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Vehicles -->
+<section class="section-padding">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-label">Our Fleet</span>
+            <h2 class="section-title">Featured Vehicles</h2>
+        </div>
+        <div class="row g-4">
+            {% for vehicle in featured_vehicles %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:0 }}00">
+                {% include 'booking/partials/vehicle_card.html' with vehicle=vehicle %}
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">No featured vehicles available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5">
+            <a href="{% url 'booking:fleet' %}" class="btn btn-outline-primary">View All Vehicles</a>
+        </div>
+    </div>
+</section>
+
+<!-- Services -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-label">What We Offer</span>
+            <h2 class="section-title">Our Travel Services</h2>
+        </div>
+        <div class="row g-4">
+            {% for service in services %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:0 }}00">
+                <div class="service-card h-100">
+                    <div class="service-icon"><i class="bi {{ service.icon }}"></i></div>
+                    <h5>{{ service.title }}</h5>
+                    <p>{{ service.description }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-md-4" data-aos="fade-up">
+                <div class="service-card h-100">
+                    <div class="service-icon"><i class="bi bi-signpost-split"></i></div>
+                    <h5>Outstation Trips</h5>
+                    <p>Comfortable long-distance travel to any city in India with experienced drivers.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card h-100">
+                    <div class="service-icon"><i class="bi bi-airplane"></i></div>
+                    <h5>Airport Transfers</h5>
+                    <p>On-time pickup and drop to all major airports. Track your flight, we track your ride.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card h-100">
+                    <div class="service-icon"><i class="bi bi-heart"></i></div>
+                    <h5>Wedding & Events</h5>
+                    <p>Decorate your special day with our premium fleet and professional chauffeurs.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Why Choose Us -->
+<section class="section-padding bg-primary-dark text-white">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <span class="section-label text-warning">Why Choose Us</span>
+                <h2 class="section-title text-white">Travel With Confidence</h2>
+                <p class="text-white-50">For over a decade, Choudhary Travels has been the preferred choice for families, corporates, and tourists across Rajasthan and beyond.</p>
+                <ul class="check-list mt-4">
+                    <li><i class="bi bi-check-circle-fill"></i> GPS-enabled, well-maintained vehicles</li>
+                    <li><i class="bi bi-check-circle-fill"></i> Verified & experienced drivers</li>
+                    <li><i class="bi bi-check-circle-fill"></i> Transparent pricing — no hidden charges</li>
+                    <li><i class="bi bi-check-circle-fill"></i> 24/7 customer support on call & WhatsApp</li>
+                    <li><i class="bi bi-check-circle-fill"></i> Flexible payment options</li>
+                </ul>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="feature-grid">
+                    <div class="feature-box"><i class="bi bi-shield-check"></i><span>Safe Travel</span></div>
+                    <div class="feature-box"><i class="bi bi-cash-coin"></i><span>Best Rates</span></div>
+                    <div class="feature-box"><i class="bi bi-clock-history"></i><span>On Time</span></div>
+                    <div class="feature-box"><i class="bi bi-headset"></i><span>24/7 Help</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+{% if testimonials %}
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-label">Testimonials</span>
+            <h2 class="section-title">What Our Customers Say</h2>
+        </div>
+        <div class="row g-4">
+            {% for t in testimonials %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:0 }}00">
+                <div class="testimonial-card h-100">
+                    <div class="stars mb-2">
+                        {% for i in "12345" %}
+                        <i class="bi bi-star{% if forloop.counter <= t.rating %}-fill{% endif %}"></i>
+                        {% endfor %}
+                    </div>
+                    <p class="review-text">"{{ t.review }}"</p>
+                    <div class="reviewer">
+                        <strong>{{ t.customer_name }}</strong>
+                        {% if t.location %}<small class="text-muted d-block">{{ t.location }}</small>{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container text-center" data-aos="zoom-in">
+        <h2 class="text-white mb-3">Ready to Hit the Road?</h2>
+        <p class="text-white-50 mb-4">Book your ride in minutes. Call us or send a WhatsApp message anytime.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="{% url 'booking:book' %}" class="btn btn-accent btn-lg">Book Now</a>
+            <a href="https://wa.me/{{ business_whatsapp }}" class="btn btn-outline-light btn-lg" target="_blank" rel="noopener">
+                <i class="bi bi-whatsapp me-2"></i>WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

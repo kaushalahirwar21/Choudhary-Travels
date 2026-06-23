@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us — {{ business_name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <h1 data-aos="fade-up">About Choudhary Travels</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Trusted travel service with reliable rides.</p>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="row align-items-center g-5 mb-5">
+            <div class="col-lg-4" data-aos="fade-right">
+                <img src="{% static 'images/owner.png' %}" alt="Keshav Singh Choudhary" class="img-fluid rounded-4 shadow">
+            </div>
+            <div class="col-lg-8" data-aos="fade-left">
+                <h2 class="section-title">Owner: Keshav Singh Choudhary</h2>
+                <p>Choudhary Travels is owned and managed by Keshav Singh Choudhary, who is dedicated to providing safe, reliable, and comfortable travel experiences. The focus is always on customer satisfaction and timely service.</p>
+                <a href="{% url 'admin:index' %}" class="btn btn-primary mt-3">Owner Login</a>
+
+            </div>
+        </div>
+        <div class="row align-items-center g-5">
+            <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
+                 <img src="{% static 'images/developer.png' %}" alt="Kaushal Singh Ahirwar" class="img-fluid rounded-4 shadow">
+            </div>
+            <div class="col-lg-8" data-aos="fade-left" data-aos-delay="100">
+                <h2 class="section-title">Developer: Kaushal Singh Ahirwar</h2>
+                <p>This website is developed by Kaushal Singh Ahirwar, a Computer Science student passionate about building real-world applications. The aim is to create a smooth and efficient online booking system using Django and Python. For technical support, you can contact the developer at 9977949032.</p>
+                <a href="tel:9977949032" class="btn btn-primary mt-3">Contact Developer</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="section-title">Our Services</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-3" data-aos="fade-up">
+                <div class="value-card text-center h-100">
+                    <h5>Local travel</h5>
+                </div>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="value-card text-center h-100">
+                    <h5>Outstation trips</h5>
+                </div>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="value-card text-center h-100">
+                    <h5>Hourly bookings</h5>
+                </div>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="value-card text-center h-100">
+                    <h5>Affordable pricing</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container text-center">
+        <h2 class="section-title" data-aos="fade-up">Contact Us</h2>
+        <p data-aos="fade-up" data-aos-delay="100">Phone: +91 9755422892</p>
+        <p data-aos="fade-up" data-aos-delay="200">Email: keshavsinghchoudhary59@gmail.com</p>
+        <p data-aos="fade-up" data-aos-delay="300">Location: Sohagpur</p>
+    </div>
+</section>
+
+{% endblock %}

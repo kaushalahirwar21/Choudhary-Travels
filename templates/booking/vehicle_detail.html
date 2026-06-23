@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ vehicle.name }} — {{ business_name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-sm">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-light mb-2">
+                <li class="breadcrumb-item"><a href="{% url 'booking:home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'booking:fleet' %}">Fleet</a></li>
+                <li class="breadcrumb-item active">{{ vehicle.name }}</li>
+            </ol>
+        </nav>
+        <h1 data-aos="fade-up">{{ vehicle.name }}</h1>
+        <p data-aos="fade-up" data-aos-delay="100">{{ vehicle.get_category_display }} · {{ vehicle.seats }} Seats</p>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="vehicle-detail-img">
+                    {% if vehicle.image %}
+                    <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="img-fluid rounded-4 shadow">
+                    {% else %}
+                    <div class="vehicle-img-placeholder large">
+                        <i class="bi bi-car-front-fill"></i>
+                        <span>{{ vehicle.name }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <span class="badge bg-primary mb-3">{{ vehicle.get_category_display }}</span>
+                <h2 class="mb-3">{{ vehicle.name }}</h2>
+                {% if vehicle.description %}
+                <p class="text-muted">{{ vehicle.description }}</p>
+                {% endif %}
+
+                <div class="pricing-box my-4">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="price-card">
+                                <small>Per Kilometre</small>
+                                <strong>₹{{ vehicle.price_per_km }}</strong>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="price-card accent">
+                                <small>Per Day Package</small>
+                                <strong>₹{{ vehicle.price_per_day }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if vehicle.feature_list %}
+                <h6 class="mb-3">Features</h6>
+                <ul class="feature-tags mb-4">
+                    {% for feat in vehicle.feature_list %}
+                    <li><i class="bi bi-check2"></i> {{ feat }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <div class="d-flex gap-2 flex-wrap">
+                    <a href="{% url 'booking:book' %}?vehicle={{ vehicle.pk }}" class="btn btn-accent btn-lg">
+                        <i class="bi bi-calendar-check me-2"></i>Book This Vehicle
+                    </a>
+                    <a href="https://wa.me/{{ business_whatsapp }}?text=Hi%2C%20I%20want%20to%20book%20{{ vehicle.name|urlencode }}" 
+                       class="btn btn-outline-success btn-lg" target="_blank" rel="noopener">
+                        <i class="bi bi-whatsapp me-2"></i>WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inline booking form -->
+        <div class="row mt-5">
+            <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                <div class="booking-form-card">
+                    <h4 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Book {{ vehicle.name }}</h4>
+                    <form method="post" action="{% url 'booking:book' %}">
+                        {% csrf_token %}
+                        {% include 'booking/partials/booking_form_fields.html' with form=booking_form %}
+                        <button type="submit" class="btn btn-accent btn-lg mt-3 px-5">Submit Booking Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tripType = document.getElementById('id_trip_type');
+        const returnDate = document.getElementById('id_return_date');
+        if (tripType && returnDate) {
+            function toggleReturn() {
+                returnDate.closest('.col-md-4').style.display =
+                    tripType.value === 'round_trip' ? '' : '';
+            }
+            tripType.addEventListener('change', toggleReturn);
+            toggleReturn();
+        }
+    });
+</script>
+{% endblock %}

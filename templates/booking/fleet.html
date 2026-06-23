@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Fleet — {{ business_name }}{% endblock %}
+{% block meta_description %}Browse our fleet of Sedans, SUVs, Innova, Tempo Traveller and Mini Buses. Best rates for outstation travel across India.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <h1 data-aos="fade-up">Our Fleet</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Choose from our well-maintained, AC-equipped vehicles for every travel need.</p>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="row g-4">
+            {% for vehicle in vehicles %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:0 }}0">
+                {% include 'booking/partials/vehicle_card.html' %}
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5" data-aos="fade-up">
+                <i class="bi bi-search display-4 text-muted d-block mb-3"></i>
+                <h4>No vehicles found</h4>
+                <p class="text-muted">Try adjusting your filters or <a href="{% url 'booking:contact' %}">contact us</a> for custom requirements.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

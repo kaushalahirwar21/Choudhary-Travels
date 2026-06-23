@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Book a Car — {{ business_name }}{% endblock %}
+{% block meta_description %}Book your outstation taxi or car rental online. Fill in trip details and we'll confirm your ride quickly.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <h1 data-aos="fade-up">Book Your Ride</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Fill in your trip details and we'll get back to you with the best quote within minutes.</p>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-7" data-aos="fade-right">
+                <div class="booking-form-card">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                        {% endif %}
+                        {% include 'booking/partials/booking_form_fields.html' with form=form %}
+                        
+                        <!-- Price Estimate Section -->
+                        <div class="price-estimate-box mt-4 p-3 bg-light rounded border-start border-5" style="border-color: var(--accent) !important;">
+                            <small class="text-muted d-block mb-2">Estimated Cost:</small>
+                            <div id="price-estimate" class="fs-5 text-dark">
+                                <span class="text-muted">Select vehicle and dates to see estimate</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-accent btn-lg mt-4 px-5">
+                            <i class="bi bi-send me-2"></i>Submit Booking Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5" data-aos="fade-left">
+                <div class="info-sidebar sticky-top" style="top: 100px;">
+                    <h5><i class="bi bi-info-circle me-2"></i>Booking Info</h5>
+                    <ul class="info-list">
+                        <li><i class="bi bi-check2"></i> Free cancellation up to 24 hours before pickup</li>
+                        <li><i class="bi bi-check2"></i> All-inclusive pricing — tolls quoted separately</li>
+                        <li><i class="bi bi-check2"></i> Driver allowance included in day packages</li>
+                        <li><i class="bi bi-check2"></i> Pay via UPI, cash, or bank transfer</li>
+                    </ul>
+                    <hr>
+                    <h6>Need Help?</h6>
+                    <p class="text-muted small">Call us anytime or message on WhatsApp for instant support.</p>
+                    <a href="tel:{{ business_phone }}" class="btn btn-outline-primary btn-sm w-100 mb-2">
+                        <i class="bi bi-telephone me-1"></i>{{ business_phone }}
+                    </a>
+                    <a href="https://wa.me/{{ business_whatsapp }}" class="btn btn-outline-success btn-sm w-100" target="_blank" rel="noopener">
+                        <i class="bi bi-whatsapp me-1"></i>WhatsApp Chat
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

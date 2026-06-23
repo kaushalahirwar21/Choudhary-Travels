@@ -1,0 +1,33 @@
+<div class="vehicle-card h-100">
+    <div class="vehicle-img-wrap">
+        {% if vehicle.image %}
+        <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="vehicle-img">
+        {% else %}
+        <div class="vehicle-img-placeholder">
+            <i class="bi bi-car-front-fill"></i>
+        </div>
+        {% endif %}
+        <span class="vehicle-badge">{{ vehicle.get_category_display }}</span>
+    </div>
+    <div class="vehicle-body">
+        <h5 class="vehicle-name">{{ vehicle.name }}</h5>
+        <div class="vehicle-meta">
+            <span><i class="bi bi-people-fill"></i> {{ vehicle.seats }} Seats</span>
+            <span><i class="bi bi-speedometer2"></i> ₹{{ vehicle.price_per_km }}/km</span>
+        </div>
+        {% if vehicle.feature_list %}
+        <div class="vehicle-features">
+            {% for feat in vehicle.feature_list|slice:":3" %}
+            <span class="feat-tag">{{ feat }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+                <small class="text-muted">From</small>
+                <strong class="price-text">₹{{ vehicle.price_per_day }}/day</strong>
+            </div>
+            <a href="{% url 'booking:vehicle_detail' vehicle.pk %}" class="btn btn-sm btn-primary">Details</a>
+        </div>
+    </div>
+</div>

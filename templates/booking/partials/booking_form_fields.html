@@ -1,0 +1,85 @@
+{% if compact %}
+<div class="row g-2">
+    <div class="col-12">
+        <label class="form-label small mb-1">{{ form.customer_name.label }}</label>
+        {{ form.customer_name }}
+    </div>
+    <div class="col-6">
+        <label class="form-label small mb-1">{{ form.phone.label }}</label>
+        {{ form.phone }}
+    </div>
+    <div class="col-6">
+        <label class="form-label small mb-1">{{ form.pickup_date.label }}</label>
+        {{ form.pickup_date }}
+    </div>
+    <div class="col-12">
+        <label class="form-label small mb-1">{{ form.pickup_location.label }}</label>
+        {{ form.pickup_location }}
+    </div>
+    <div class="col-12">
+        <label class="form-label small mb-1">{{ form.drop_location.label }}</label>
+        {{ form.drop_location }}
+    </div>
+    <div class="col-12">
+        <label class="form-label small mb-1">{{ form.vehicle.label }}</label>
+        {{ form.vehicle }}
+    </div>
+</div>
+{% else %}
+<div class="row g-3">
+    <div class="col-md-6">
+        <label class="form-label">{{ form.customer_name.label }} <span class="text-danger">*</span></label>
+        {{ form.customer_name }}
+        {% if form.customer_name.errors %}<div class="invalid-feedback d-block">{{ form.customer_name.errors.0 }}</div>{% endif %}
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">{{ form.phone.label }} <span class="text-danger">*</span></label>
+        {{ form.phone }}
+        {% if form.phone.errors %}<div class="invalid-feedback d-block">{{ form.phone.errors.0 }}</div>{% endif %}
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">{{ form.email.label }}</label>
+        {{ form.email }}
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">{{ form.passengers.label }}</label>
+        {{ form.passengers }}
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">{{ form.trip_type.label }}</label>
+        {{ form.trip_type }}
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">{{ form.vehicle.label }}</label>
+        {{ form.vehicle }}
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">{{ form.pickup_location.label }} <span class="text-danger">*</span></label>
+        {{ form.pickup_location }}
+        {% if form.pickup_location.errors %}<div class="invalid-feedback d-block">{{ form.pickup_location.errors.0 }}</div>{% endif %}
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">{{ form.drop_location.label }} <span class="text-danger">*</span></label>
+        {{ form.drop_location }}
+        {% if form.drop_location.errors %}<div class="invalid-feedback d-block">{{ form.drop_location.errors.0 }}</div>{% endif %}
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">{{ form.pickup_date.label }} <span class="text-danger">*</span></label>
+        {{ form.pickup_date }}
+        {% if form.pickup_date.errors %}<div class="invalid-feedback d-block">{{ form.pickup_date.errors.0 }}</div>{% endif %}
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">{{ form.return_date.label }}</label>
+        {{ form.return_date }}
+        {% if form.return_date.errors %}<div class="invalid-feedback d-block">{{ form.return_date.errors.0 }}</div>{% endif %}
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">{{ form.pickup_time.label }}</label>
+        {{ form.pickup_time }}
+    </div>
+    <div class="col-12">
+        <label class="form-label">{{ form.message.label }}</label>
+        {{ form.message }}
+    </div>
+</div>
+{% endif %}
