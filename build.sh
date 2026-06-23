@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Install dependencies
-pip install -r requirements.txt
+echo "BUILD SCRIPT STARTED: Attempting to run migrations..."
 
-# Apply database migrations
-python manage.py migrate
+python manage.py migrate --no-input
+
+echo "BUILD SCRIPT FINISHED: Migrations complete."
