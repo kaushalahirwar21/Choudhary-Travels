@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Python
 __pycache__/
 *.py[cod]
@@ -34,12 +33,3 @@ Thumbs.db
 htmlcov/
 .coverage
 .pytest_cache/
-=======
-.venv/
-__pycache__/
-*.pyc
-db.sqlite3
-.env
-staticfiles/
-media/
->>>>>>> 85581e2fb793ac61c7fcc6a98dec5ac5ab2ee5b8
