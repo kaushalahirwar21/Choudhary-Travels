@@ -1,0 +1,121 @@
+{% extends "admin/index.html" %}
+{% load booking_tags %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    /* Custom Admin Dashboard Dashboard Styles */
+    .custom-dashboard-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+    .custom-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: 1px solid #e2e8f0;
+        border-top: 5px solid #417690;
+    }
+    .custom-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+    .custom-card-header {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 12px;
+        border-bottom: 2px solid #f8fafc;
+        padding-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .custom-card-body {
+        font-size: 0.95rem;
+        color: #475569;
+        line-height: 1.6;
+    }
+    .status-badge {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .status-Pending {
+        background-color: #fef3c7;
+        color: #d97706;
+    }
+    .status-Confirmed {
+        background-color: #dcfce7;
+        color: #15803d;
+    }
+    .date-text {
+        color: #3b82f6;
+        font-weight: 600;
+    }
+    .dashboard-title {
+        color: #417690;
+        font-weight: 300;
+        margin-bottom: 10px;
+        font-size: 1.8rem;
+        letter-spacing: 0.5px;
+    }
+    .dashboard-subtitle {
+        color: #64748b;
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 class="dashboard-title">🚗 Welcome to the Choudhary Travels Command Center</h2>
+
+<div class="dashboard-subtitle"><strong>Recent Car Bookings Dashboard</strong></div>
+
+{% get_recent_bookings as recent_bookings %}
+
+{% if recent_bookings %}
+    <div class="custom-dashboard-container">
+    {% for b in recent_bookings %}
+        <div class="custom-card">
+            <div class="custom-card-header">
+                {{ b.car.name }}
+                <span class="status-badge status-{{ b.status }}">{{ b.status }}</span>
+            </div>
+            <div class="custom-card-body">
+                <div><strong>👤 Client:</strong> {{ b.name }} ({{ b.phone }})</div>
+                <div style="margin-top: 10px;"><strong>📍 Pickup:</strong> {{ b.pickup }}</div>
+                <div><strong>🏁 Drop:</strong> {{ b.drop }}</div>
+                <div style="margin-top: 12px; padding: 10px; background: #f8fafc; border-radius: 8px;">
+                    <div><strong>🕒 From:</strong> <span class="date-text">{{ b.start_time|date:"d M Y, h:i A" }}</span></div>
+                    <div><strong>⏳ To:</strong> <span class="date-text">{{ b.end_time|date:"d M Y, h:i A" }}</span></div>
+                    <div style="margin-top: 5px;"><strong>💰 Price:</strong> ₹{{ b.total_price }}</div>
+                </div>
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    {% if b.status != 'Confirmed' %}
+                    <a href="{% url 'admin:booking_mark_confirmed' b.id %}" style="padding: 6px 12px; background: #10b981; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 0.85rem;">✅ Complete</a>
+                    {% endif %}
+                    <a href="{% url 'admin:booking_delete_booking' b.id %}" onclick="return confirm('Do you want to delete this booking?');" style="padding: 6px 12px; background: #ef4444; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 0.85rem;">🗑️ Delete</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <div style="padding: 30px; background: #f8fafc; border-radius: 12px; border: 2px dashed #cbd5e1; text-align: center; color: #64748b; margin-bottom: 40px; font-size: 1.1rem;">
+        No active or recent bookings to display. The fleet is fully available!
+    </div>
+{% endif %}
+
+<hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 30px 0;">
+
+{{ block.super }}
+{% endblock %}

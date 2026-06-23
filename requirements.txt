@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Django>=4.2,<5.0
 gunicorn>=21.2.0
 whitenoise>=6.6.0
@@ -6,3 +7,12 @@ python-decouple>=3.8
 requests>=2.31.0
 Pillow>=10.0.0
 dj-database-url>=2.1.0
+=======
+﻿Django
+gunicorn
+whitenoise
+Pillow
+geopy
+dj-database-url
+psycopg[binary]
+>>>>>>> 85581e2fb793ac61c7fcc6a98dec5ac5ab2ee5b8

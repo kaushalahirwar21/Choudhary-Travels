@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Book Your Ride</h2>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input name="name" class="form-control mb-3" placeholder="Name" value="{{ form_data.name }}" required>
+        <input name="phone" class="form-control mb-3" placeholder="Phone" value="{{ form_data.phone }}" required>
+
+        <input name="pickup" class="form-control mb-3" placeholder="Pickup Location" value="{{ form_data.pickup }}" required>
+        <input name="drop" class="form-control mb-3" placeholder="Drop Location" value="{{ form_data.drop }}" required>
+
+        <label>Select Start Time</label>
+        <input type="datetime-local" name="start_time" class="form-control mb-3" value="{{ form_data.start_time }}" required>
+
+        <label>Trip Duration (Hours)</label>
+        <input type="number" min="1" max="24" name="hours" class="form-control mb-3" value="{{ form_data.hours|default:'2' }}" required>
+
+        <button class="btn btn-primary">Check Availability</button>
+    </form>
+
+    {% if success %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+            myModal.show();
+        });
+    </script>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+          <div class="modal-body p-5">
+            <h2 class="text-success mb-3">Booking Confirmed!</h2>
+            <p>Your request has been saved securely.</p>
+            <p class="text-muted mb-1">Car: {{ booking_summary.car }}</p>
+            <p class="text-muted mb-1">Distance: {{ booking_summary.distance }} km</p>
+            <p class="text-muted mb-1">Duration: {{ booking_summary.hours }} hour(s)</p>
+            <p class="text-muted">Estimated price: Rs. {{ booking_summary.price }}</p>
+            <p class="text-muted">Please click below to send booking details to the owner via WhatsApp.</p>
+            <a href="{{ whatsapp_url }}" class="btn btn-success btn-lg mt-3" target="_blank">
+               Proceed to WhatsApp
+            </a>
+            <button type="button" class="btn btn-secondary btn-lg mt-3 ms-2" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

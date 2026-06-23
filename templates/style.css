@@ -1,0 +1,102 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f5f7fa;
+}
+
+/* 🔥 Navbar */
+.navbar {
+    background: linear-gradient(90deg, #1e3c72, #2a5298);
+}
+
+/* 🔥 Headings */
+h1, h2, h3 {
+    font-weight: 700;
+    color: #1e3c72;
+}
+
+/* 🔥 Buttons */
+.btn {
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* 🔥 Cards */
+.card {
+    border: none;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* 🔥 Images */
+img {
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.04);
+}
+
+/* 🔥 Section spacing */
+.container {
+    margin-top: 60px;
+}
+
+/* 🔥 Footer */
+footer {
+    background: linear-gradient(90deg, #1e3c72, #2a5298);
+}
+
+/* 🔥 Smooth transitions for all */
+* {
+    scroll-behavior: smooth;
+}
+
+
+/* 🔥 Mobile responsive */
+@media (max-width: 768px) {
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .lead {
+        font-size: 16px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .container {
+        margin-top: 30px;
+        padding: 10px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+}
+
+
+.about-img {
+    transition: 0.4s ease;
+}
+
+.about-img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}

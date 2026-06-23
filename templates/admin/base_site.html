@@ -1,0 +1,65 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}" style="color: #f8b400; font-weight: bold; font-size: 1.5rem; text-decoration: none;">🚗 Choudhary Travels Admin</a></h1>
+{% endblock %}
+
+{% block extrastyle %}
+<style>
+    /* Global Admin UI Overrides */
+    #header {
+        background: #0f172a; /* Dark sleek header */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        padding: 12px 20px;
+    }
+    div.breadcrumbs {
+        background: #f1f5f9;
+        color: #475569;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+    div.breadcrumbs a {
+        color: #3b82f6;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    div.breadcrumbs a:hover {
+        text-decoration: underline;
+    }
+    .module h2, .module caption, .inline-group h2 {
+        background: #417690;
+        border-radius: 6px 6px 0 0;
+    }
+    /* Modules table styling */
+    th {
+        font-weight: 600;
+    }
+    #branding h1 {
+        margin: 0;
+    }
+    /* Buttons */
+    .button, input[type=submit], input[type=button], .submit-row input, a.button {
+        background: #3b82f6;
+        border-radius: 6px;
+        border: none;
+        transition: background 0.2s ease;
+    }
+    .button:hover, input[type=submit]:hover, input[type=button]:hover {
+        background: #2563eb;
+    }
+    .button.default, input[type=submit].default {
+        background: #10b981;
+    }
+    .button.default:hover, input[type=submit].default:hover {
+        background: #059669;
+    }
+    a:link, a:visited {
+        color: #3b82f6;
+    }
+</style>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

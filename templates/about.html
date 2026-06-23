@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="text-center mb-5" data-aos="fade-down">
+        <h1 class="fw-bold">About Choudhary Travels</h1>
+        <p class="text-muted">Trusted travel service with reliable rides</p>
+    </div>
+
+    <div class="row align-items-center mb-5" data-aos="fade-right">
+        <div class="col-12 col-md-4 text-center mb-3">
+            <img src="{% static 'images/owner.png' %}" class="img-fluid rounded-circle shadow about-img" width="200">
+        </div>
+
+        <div class="col-12 col-md-8 text-center text-md-start">
+            <h3 class="fw-bold">Owner: Keshav Singh Choudhary</h3>
+            <p>
+                Choudhary Travels is owned and managed by Keshav Singh Choudhary, who is dedicated
+                to providing safe, reliable, and comfortable travel experiences. The focus is always
+                on customer satisfaction and timely service.
+            </p>
+        </div>
+    </div>
+
+    <div class="row align-items-center mb-5" data-aos="fade-left">
+        <div class="col-12 col-md-4 text-center mb-3">
+            <img src="{% static 'images/developer.png' %}" class="img-fluid rounded-circle shadow about-img" width="200">
+        </div>
+
+        <div class="col-12 col-md-8 text-center text-md-start">
+            <h3 class="fw-bold">Developer: Kaushal Singh Ahirwar</h3>
+            <p>
+                This website is developed by Kaushal Singh Ahirwar, a Computer Science student passionate about
+                building real-world applications. The aim is to create a smooth and efficient
+                online booking system using Django and Python.
+            </p>
+        </div>
+    </div>
+
+    <div class="mb-5 text-center" data-aos="fade-up">
+        <h3 class="fw-bold">Our Services</h3>
+        <ul class="list-unstyled">
+            <li>Local travel</li>
+            <li>Outstation trips</li>
+            <li>Hourly bookings</li>
+            <li>Affordable pricing</li>
+        </ul>
+    </div>
+
+    <div class="text-center mt-5" data-aos="zoom-in">
+        <h3 class="fw-bold">Contact Us</h3>
+        <p>Phone: +91 9755422892</p>
+        <p>Email: keshavsinghchoudhary59@gmail.com</p>
+        <p>Location: Sohagpur</p>
+    </div>
+
+    <div class="text-center mt-4" data-aos="fade-up">
+        <h4>Owner Access</h4>
+        <p>If you are the owner, login to manage bookings and cars.</p>
+
+        <a href="/admin/" class="btn btn-warning btn-lg">
+            Owner Login
+        </a>
+
+        <a href="/admin/logout/" class="btn btn-danger mt-2">
+            Logout
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django import template
 
 register = template.Library()
@@ -9,3 +10,6 @@ def split_features(value):
     if not value:
         return []
     return [item.strip() for item in value.split(',') if item.strip()]
+=======
+# init
+>>>>>>> 85581e2fb793ac61c7fcc6a98dec5ac5ab2ee5b8
