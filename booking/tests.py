@@ -154,10 +154,16 @@ class BookingModelTests(TestCase):
             drop_location='Pune',
             pickup_date=self.today,
         )
+        # Manually adjust created_at to ensure different timestamps and avoid test flakiness
+        from django.utils import timezone
+        Booking.objects.filter(pk=booking1.pk).update(created_at=timezone.now() - timedelta(days=1))
+        Booking.objects.filter(pk=booking2.pk).update(created_at=timezone.now())
+
         bookings = list(Booking.objects.all())
-        # Most recent booking should be last if ordered by created_at desc
-        self.assertEqual(bookings[-1].customer_name, 'Second')
-        self.assertEqual(bookings[-2].customer_name, 'First')
+        # Most recent booking should be first if ordered by created_at desc
+        self.assertEqual(bookings[0].customer_name, 'Second')
+        self.assertEqual(bookings[1].customer_name, 'First')
+
 
 
 class ContactMessageTests(TestCase):
@@ -370,6 +376,7 @@ class BookingCreateViewTests(TestCase):
             'pickup_location': 'Delhi',
             'drop_location': 'Agra',
             'pickup_date': self.today,
+            'pickup_time': '10:00',
             'trip_type': 'one_way',
             'passengers': 2,
             'vehicle': self.vehicle.pk,
@@ -377,6 +384,7 @@ class BookingCreateViewTests(TestCase):
         response = self.client.post('/book/', data)
         self.assertEqual(response.status_code, 302)  # Redirect after success
         self.assertEqual(Booking.objects.count(), 1)
+
 
     def test_booking_create_invalid_missing_name(self):
         """Test booking with missing customer name fails."""

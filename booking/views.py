@@ -36,8 +36,35 @@ class FleetView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        """Filter vehicles to only show Mahindra Bolero Neo."""
-        return Vehicle.objects.filter(name__icontains='Mahindra Bolero Neo', is_available=True)
+        """Filter vehicles with search query and category."""
+        queryset = Vehicle.objects.filter(is_available=True)
+        
+        category = self.request.GET.get('category')
+        if category:
+            queryset = queryset.filter(category=category)
+            
+        q = self.request.GET.get('q')
+        if q:
+            queryset = queryset.filter(
+                Q(name__icontains=q) | Q(description__icontains=q)
+            )
+            
+        min_seats = self.request.GET.get('min_seats')
+        if min_seats:
+            try:
+                queryset = queryset.filter(seats__gte=int(min_seats))
+            except ValueError:
+                pass
+                
+        max_price = self.request.GET.get('max_price')
+        if max_price:
+            try:
+                queryset = queryset.filter(price_per_day__lte=float(max_price))
+            except ValueError:
+                pass
+                
+        return queryset
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -133,8 +160,8 @@ class BookingCreateView(CreateView):
         return "\n".join(message_lines)
 
     def form_valid(self, form):
-        """On valid form, redirect to WhatsApp with pre-filled message."""
-        
+        """On valid form, save booking and redirect to WhatsApp with pre-filled message."""
+        self.object = form.save()
         message = self._build_whatsapp_message(form)
         whatsapp_number = settings.BUSINESS_WHATSAPP
         whatsapp_url = f"https://wa.me/{whatsapp_number}?" + urlencode({'text': message}, encoding='utf-8')
@@ -145,6 +172,7 @@ class BookingCreateView(CreateView):
         )
         
         return HttpResponseRedirect(whatsapp_url)
+
 
     def form_invalid(self, form):
         """Handle form validation errors."""
