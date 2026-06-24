@@ -13,4 +13,4 @@ def split_features(value):
 
 @register.simple_tag
 def get_recent_bookings():
-    return Booking.objects.exclude(status='Cancelled').order_by('-start_time')[:10]
+    return Booking.objects.exclude(status='Cancelled').order_by('-created_at')[:10]
