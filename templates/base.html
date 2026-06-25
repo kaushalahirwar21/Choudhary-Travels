@@ -57,14 +57,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto gap-2 py-2 py-lg-0 align-items-lg-center">
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'booking:home' %}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'booking:about' %}">About</a>
                     </li>
-                    <li class="nav-item mt-2 mt-lg-0 ms-lg-2">
+                    <li class="nav-item">
                         <a class="btn btn-accent px-4 w-100 w-lg-auto" href="{% url 'booking:book' %}">
                             <i class="bi bi-calendar-check me-1"></i>Book Now
                         </a>

@@ -1,11 +1,10 @@
+{% load static %}
 <div class="vehicle-card h-100">
     <div class="vehicle-img-wrap">
         {% if vehicle.image %}
-        <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="vehicle-img">
+        <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="vehicle-img" onerror="this.onerror=null; this.src='{% static 'images/car.png' %}';">
         {% else %}
-        <div class="vehicle-img-placeholder">
-            <i class="bi bi-car-front-fill"></i>
-        </div>
+        <img src="{% static 'images/car.png' %}" alt="{{ vehicle.name }}" class="vehicle-img">
         {% endif %}
         <span class="vehicle-badge">{{ vehicle.get_category_display }}</span>
     </div>
