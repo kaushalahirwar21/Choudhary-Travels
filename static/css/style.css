@@ -116,18 +116,19 @@ body {
 }
 
 .nav-link:hover {
-    color: var(--accent-dark);
-    background: rgba(249, 115, 22, 0.1);
+    color: var(--accent);
+    background: rgba(249, 115, 22, 0.05);
 }
 
 .nav-link.active {
-    background: var(--accent-dark);
-    color: #ffffff;
+    background: transparent;
+    color: var(--accent) !important;
+    font-weight: 600;
 }
 
 .nav-link.active:hover {
-    background: var(--accent-dark);
-    color: #ffffff;
+    background: rgba(249, 115, 22, 0.05);
+    color: var(--accent) !important;
 }
 
 /* Fix for invisible mobile menu button (toggler) */
@@ -137,6 +138,18 @@ body {
 
 .main-nav .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(31, 41, 55, 0.7)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Mobile navbar container float card */
+@media (max-width: 991px) {
+    .main-nav .navbar-collapse {
+        background: #ffffff;
+        padding: 1.25rem;
+        border-radius: var(--radius);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        margin-top: 0.75rem;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
 }
 
 /* Buttons */
