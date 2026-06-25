@@ -132,28 +132,30 @@ body {
 }
 
 /* Modern Animating Mobile Menu Button (Toggler) */
-.main-nav .navbar-toggler {
-    border: none;
-    padding: 0.25rem;
-    width: 24px;
-    height: 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background: transparent;
+.main-nav .navbar-toggler,
+.main-nav .navbar-toggler:focus,
+.main-nav .navbar-toggler:hover,
+.main-nav .navbar-toggler:active {
+    border: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    width: 24px !important;
+    height: 18px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
     transition: transform 0.25s ease;
-}
-
-.main-nav .navbar-toggler:focus {
-    box-shadow: none;
-    outline: none;
 }
 
 .main-nav .toggler-icon-bar {
     display: block;
     width: 24px;
     height: 2px;
-    background-color: var(--primary);
+    background-color: var(--primary) !important;
     border-radius: 4px;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     transform-origin: center;
@@ -161,18 +163,18 @@ body {
 
 /* Morphing hamburger lines into 'X' when menu is open */
 .main-nav .navbar-toggler:not(.collapsed) .top-bar {
-    transform: translateY(8px) rotate(45deg);
-    background-color: var(--accent);
+    transform: translateY(8px) rotate(45deg) !important;
+    background-color: var(--accent) !important;
 }
 
 .main-nav .navbar-toggler:not(.collapsed) .middle-bar {
-    opacity: 0;
-    transform: scaleX(0);
+    opacity: 0 !important;
+    transform: scaleX(0) !important;
 }
 
 .main-nav .navbar-toggler:not(.collapsed) .bottom-bar {
-    transform: translateY(-8px) rotate(-45deg);
-    background-color: var(--accent);
+    transform: translateY(-8px) rotate(-45deg) !important;
+    background-color: var(--accent) !important;
 }
 
 /* Mobile navbar container — Modern Glassmorphism Drawer Card */
