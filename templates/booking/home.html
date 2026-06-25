@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="col-lg-6" data-aos="fade-left">
-                <img src="{% static 'images/hero_car.png' %}" alt="Choudhary Travels Hero Car" class="img-fluid rounded-4">
+                <img src="{% static 'images/car1.jpg' %}" alt="Choudhary Travels Hero Car" class="img-fluid rounded-4 shadow">
             </div>
         </div>
     </div>
@@ -110,7 +110,7 @@
             </div>
             <div class="col-lg-6" data-aos="fade-left">
                 <div class="about-img-wrap-v2">
-                    <img src="{% static 'images/about_car.png' %}" alt="About Choudhary Travels" class="img-fluid">
+                    <img src="{% static 'images/car1.jpg' %}" alt="About Choudhary Travels" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -131,9 +131,9 @@
                     <div class="single-car-grid">
                         <div class="single-car-img-wrap-v2">
                             {% if featured_vehicles.0.image %}
-                            <img src="{{ featured_vehicles.0.image.url }}" alt="Mahindra Bolero Neo" onerror="this.onerror=null; this.src='{% static 'images/car.png' %}';">
+                            <img src="{{ featured_vehicles.0.image.url }}" alt="Mahindra Bolero Neo" onerror="this.onerror=null; this.src='{% static 'images/car1.jpg' %}';">
                             {% else %}
-                            <img src="{% static 'images/car.png' %}" alt="Mahindra Bolero Neo">
+                            <img src="{% static 'images/car1.jpg' %}" alt="Mahindra Bolero Neo">
                             {% endif %}
                             <span class="single-car-badge-v2" style="position: absolute; top: 1.5rem; left: 1.5rem; z-index: 10;">SUV</span>
                         </div>
