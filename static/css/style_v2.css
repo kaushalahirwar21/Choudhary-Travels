@@ -133,7 +133,16 @@ body {
 
 /* Modern Animating Mobile Menu Button (Toggler) */
 @media (max-width: 991px) {
-    .main-nav .navbar-toggler,
+    .main-nav .navbar-toggler {
+        border: none !important;
+        background: transparent !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+        padding: 0 !important;
+        transition: transform 0.25s ease;
+    }
+
     .main-nav .navbar-toggler:focus,
     .main-nav .navbar-toggler:hover,
     .main-nav .navbar-toggler:active {
@@ -142,40 +151,20 @@ body {
         background-color: transparent !important;
         box-shadow: none !important;
         outline: none !important;
-        padding: 0 !important;
-        width: 24px !important;
-        height: 18px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        transition: transform 0.25s ease;
     }
 
-    .main-nav .toggler-icon-bar {
+    /* Icon Toggling style */
+    .main-nav .navbar-toggler:not(.collapsed) .burger-icon {
+        display: none !important;
+    }
+    .main-nav .navbar-toggler:not(.collapsed) .close-icon {
         display: block !important;
-        width: 24px !important;
-        height: 2px !important;
-        background-color: var(--primary) !important;
-        border-radius: 4px;
-        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        transform-origin: center;
     }
-
-    /* Morphing hamburger lines into 'X' when menu is open */
-    .main-nav .navbar-toggler:not(.collapsed) .top-bar {
-        transform: translateY(8px) rotate(45deg) !important;
-        background-color: var(--accent) !important;
+    .main-nav .navbar-toggler.collapsed .burger-icon {
+        display: block !important;
     }
-
-    .main-nav .navbar-toggler:not(.collapsed) .middle-bar {
-        opacity: 0 !important;
-        transform: scaleX(0) !important;
-    }
-
-    .main-nav .navbar-toggler:not(.collapsed) .bottom-bar {
-        transform: translateY(-8px) rotate(-45deg) !important;
-        background-color: var(--accent) !important;
+    .main-nav .navbar-toggler.collapsed .close-icon {
+        display: none !important;
     }
 }
 
