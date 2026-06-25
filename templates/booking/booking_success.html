@@ -38,9 +38,13 @@
 {% if whatsapp_url %}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(function() {
-            window.open("{{ whatsapp_url|escapejs }}", "_blank");
-        }, 1500); // 1.5 seconds delay for a smooth experience
+        // Prevent redirect loop when clicking back button from WhatsApp
+        if (!sessionStorage.getItem("whatsapp_redirected")) {
+            sessionStorage.setItem("whatsapp_redirected", "true");
+            setTimeout(function() {
+                window.location.href = "{{ whatsapp_url|escapejs }}";
+            }, 1500); // 1.5 seconds delay
+        }
     });
 </script>
 {% endif %}
