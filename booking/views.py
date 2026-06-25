@@ -160,18 +160,20 @@ class BookingCreateView(CreateView):
         return "\n".join(message_lines)
 
     def form_valid(self, form):
-        """On valid form, save booking and redirect to WhatsApp with pre-filled message."""
+        """On valid form, save booking, store WhatsApp redirect URL in session, and go to success page."""
         self.object = form.save()
         message = self._build_whatsapp_message(form)
         whatsapp_number = settings.BUSINESS_WHATSAPP
         whatsapp_url = f"https://wa.me/{whatsapp_number}?" + urlencode({'text': message}, encoding='utf-8')
         
+        self.request.session['whatsapp_url'] = whatsapp_url
+        
         messages.success(
             self.request,
-            "✅ Your booking request has been sent! You will now be redirected to WhatsApp to confirm."
+            "✅ Your booking request has been submitted successfully!"
         )
         
-        return HttpResponseRedirect(whatsapp_url)
+        return redirect('booking:booking_success')
 
 
     def form_invalid(self, form):
@@ -187,6 +189,11 @@ class BookingSuccessView(TemplateView):
     """Confirmation page after successful booking."""
     
     template_name = 'booking/booking_success.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['whatsapp_url'] = self.request.session.pop('whatsapp_url', None)
+        return context
 
 
 class BookingTrackingView(FormView):
