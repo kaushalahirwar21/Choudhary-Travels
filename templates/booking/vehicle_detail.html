@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block title %}{{ vehicle.name }} — {{ business_name }}{% endblock %}
+{% block meta_description %}Rent a {{ vehicle.name }} for your outstation travel with {{ business_name }}. Category: {{ vehicle.get_category_display }}, Seats: {{ vehicle.seats }}, Rate: ₹{{ vehicle.price_per_km }}/km. Book online!{% endblock %}
 
 {% block content %}
 <section class="page-hero page-hero-sm">
