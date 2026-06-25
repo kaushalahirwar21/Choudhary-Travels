@@ -1,15 +1,16 @@
 /* Choudhary Travels — Custom Styles */
 
 :root {
-    --primary: #1F2937;
-    --primary-dark: #111827;
-    --accent: #F97316;
-    --accent-dark: #EA580C;
-    --gold: #06B6D4;
-    --light-bg: #F9FAFB;
-    --text-muted-light: #6B7280;
-    --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-    --radius: 12px;
+    --primary: #0f172a;
+    --primary-dark: #020617;
+    --accent: #f97316;
+    --accent-dark: #ea580c;
+    --accent-light: #ffedd5;
+    --secondary: #64748b;
+    --light-bg: #f8fafc;
+    --text-muted-light: #94a3b8;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    --radius: 16px;
 }
 
 * {
@@ -876,4 +877,380 @@ body {
         width: 50px;
         height: 50px;
     }
+}
+
+/* --- Redesign Styles --- */
+
+/* Hero Features */
+.hero-features-v2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem 2rem;
+    margin: 1.5rem 0 2rem 0;
+    padding: 0;
+    list-style: none;
+}
+.hero-feature-item-v2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary);
+}
+.hero-feature-item-v2 i {
+    color: var(--accent);
+    font-size: 1.25rem;
+}
+
+/* Feature 4-Cards Grid */
+.info-card-grid {
+    margin-top: -30px;
+    position: relative;
+    z-index: 10;
+}
+.info-card-v2 {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+}
+.info-card-v2:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+}
+.info-card-icon-v2 {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: var(--accent-light);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+.info-card-content-v2 h6 {
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--primary);
+}
+.info-card-content-v2 p {
+    color: var(--secondary);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* About Us Section Styles */
+.about-img-wrap-v2 {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+.about-img-wrap-v2 img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.4s;
+}
+.about-img-wrap-v2 img:hover {
+    transform: scale(1.03);
+}
+
+/* Single Car Showcase for Fleet */
+.single-car-showcase-v2 {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.single-car-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+}
+@media (max-width: 991px) {
+    .single-car-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.single-car-img-wrap-v2 {
+    position: relative;
+    min-height: 320px;
+    background: var(--light-bg);
+}
+.single-car-img-wrap-v2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.single-car-body-v2 {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.single-car-badge-v2 {
+    align-self: flex-start;
+    background: var(--accent-light);
+    color: var(--accent-dark);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+}
+.single-car-title-v2 {
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+.single-car-desc-v2 {
+    color: var(--secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+.single-car-meta-v2 {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.single-car-meta-item-v2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+.single-car-meta-item-v2 i {
+    color: var(--accent);
+    font-size: 1.1rem;
+}
+.single-car-features-v2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+.single-car-feature-tag-v2 {
+    background: var(--light-bg);
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.single-car-footer-v2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.single-car-price-v2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--accent);
+}
+.single-car-price-v2 span {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    font-weight: 500;
+}
+
+/* Why Choose Us Cards */
+.why-us-card-v2 {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0,0,0,0.04);
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+    height: 100%;
+}
+.why-us-card-v2:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+}
+.why-us-icon-v2 {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+.why-us-card-v2 h5 {
+    font-weight: 750;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+}
+.why-us-card-v2 p {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Testimonial V2 */
+.testimonial-card-v2 {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0,0,0,0.04);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s;
+}
+.testimonial-card-v2:hover {
+    transform: translateY(-3px);
+}
+.testimonial-stars-v2 {
+    color: #f59e0b;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+.testimonial-text-v2 {
+    color: var(--primary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+.testimonial-user-v2 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.testimonial-avatar-v2 {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    color: var(--primary);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.95rem;
+}
+.testimonial-info-v2 h6 {
+    font-weight: 750;
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--primary);
+}
+.testimonial-info-v2 small {
+    color: var(--secondary);
+    font-size: 0.75rem;
+}
+
+/* CTA Banner V2 */
+.cta-banner-v2 {
+    background: linear-gradient(90deg, #f97316, #ea580c);
+    border-radius: 16px;
+    padding: 3.5rem;
+    color: #ffffff;
+    box-shadow: 0 20px 40px rgba(249, 115, 22, 0.15);
+}
+.cta-banner-v2 h2 {
+    font-weight: 800;
+    font-size: 2.25rem;
+    margin-bottom: 0.5rem;
+}
+.cta-banner-v2 p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* Footer Redesign */
+.site-footer-v2 {
+    background: #090d16;
+    color: #ffffff;
+    padding: 5rem 0 2rem;
+    font-size: 0.9rem;
+}
+.footer-heading-v2 {
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.footer-desc-v2 {
+    color: #94a3b8;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+}
+.footer-links-v2 {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-links-v2 li {
+    margin-bottom: 0.75rem;
+}
+.footer-links-v2 a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.footer-links-v2 a:hover {
+    color: var(--accent);
+}
+.footer-contact-v2 {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #94a3b8;
+}
+.footer-contact-v2 li {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+.footer-contact-v2 i {
+    color: var(--accent);
+    margin-top: 3px;
+}
+.footer-contact-v2 a {
+    color: #94a3b8;
+    text-decoration: none;
+}
+.footer-contact-v2 a:hover {
+    color: var(--accent);
+}
+.footer-divider-v2 {
+    border-color: rgba(255, 255, 255, 0.08);
+    margin: 3rem 0 1.5rem;
 }

@@ -90,47 +90,48 @@
     <main>{% block content %}{% endblock %}</main>
 
     <!-- Footer -->
-    <footer class="site-footer">
+    <footer class="site-footer-v2">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4" data-aos="fade-up">
-                    <h5 class="footer-title">{{ business_name }}</h5>
-                    <p class="text-muted-light">{{ business_tagline }}. Reliable, affordable, and comfortable travel across Rajasthan and all of India.</p>
+                    <h5 class="footer-heading-v2 mb-3">{{ business_name }}</h5>
+                    <p class="footer-desc-v2">Your trusted travel partner for outstation cab services across Rajasthan and beyond. Reliable, safe, and comfortable journeys.</p>
                     <div class="social-links mt-3">
                         <a href="https://wa.me/{{ business_whatsapp }}" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
                         <a href="tel:{{ business_phone }}" aria-label="Phone"><i class="bi bi-telephone"></i></a>
-                        <a href="mailto:{{ business_email }}" aria-label="Email"><i class="bi bi-envelope"></i></a>
+                        <a href="mailto:{{ business_email }}" aria-label="Email"><i class="bi bi-envelope-at"></i></a>
                     </div>
                 </div>
                 <div class="col-6 col-lg-2" data-aos="fade-up" data-aos-delay="100">
-                    <h6 class="footer-heading">Quick Links</h6>
-                    <ul class="footer-links">
+                    <h6 class="footer-heading-v2">Quick Links</h6>
+                    <ul class="footer-links-v2">
                         <li><a href="{% url 'booking:home' %}">Home</a></li>
-                        <li><a href="{% url 'booking:fleet' %}">Our Fleet</a></li>
-                        <li><a href="{% url 'booking:book' %}">Book a Car</a></li>
                         <li><a href="{% url 'booking:about' %}">About Us</a></li>
+                        <li><a href="{% url 'booking:fleet' %}">Fleet</a></li>
+                        <li><a href="{% url 'booking:contact' %}">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                    <h6 class="footer-heading">Services</h6>
-                    <ul class="footer-links">
-                        <li>Outstation Trips</li>
-                        <li>Airport Transfers</li>
-                        <li>Wedding & Events</li>
+                    <h6 class="footer-heading-v2">Our Services</h6>
+                    <ul class="footer-links-v2">
+                        <li>Outstation Cabs</li>
                         <li>Corporate Travel</li>
-                        <li>Pilgrimage Tours</li>
+                        <li>Airport Transfers</li>
+                        <li>Local Sightseeing</li>
+                        <li>Tempo Traveller</li>
                     </ul>
                 </div>
                 <div class="col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                    <h6 class="footer-heading">Contact Us</h6>
-                    <ul class="footer-contact">
-                        <li><i class="bi bi-geo-alt-fill"></i> {{ business_address }}</li>
+                    <h6 class="footer-heading-v2">Contact Us</h6>
+                    <ul class="footer-contact-v2">
                         <li><i class="bi bi-telephone-fill"></i> <a href="tel:{{ business_phone }}">{{ business_phone }}</a></li>
                         <li><i class="bi bi-envelope-fill"></i> <a href="mailto:{{ business_email }}">{{ business_email }}</a></li>
+                        <li><i class="bi bi-geo-alt-fill"></i> {{ business_address }}</li>
+                        <li><i class="bi bi-whatsapp"></i> <a href="https://wa.me/{{ business_whatsapp }}" target="_blank" rel="noopener">WhatsApp Us</a></li>
                     </ul>
                 </div>
             </div>
-            <hr class="footer-divider">
+            <hr class="footer-divider-v2">
             <div class="text-center text-muted-light small">
                 &copy; {% now "Y" %} {{ business_name }}. All rights reserved.
             </div>

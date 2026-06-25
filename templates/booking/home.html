@@ -4,148 +4,227 @@
 {% block title %}Home — {{ business_name }}{% endblock %}
 
 {% block content %}
-<!-- Hero -->
+<!-- Hero Section -->
 <section class="hero-section hero-light">
     <div class="container">
         <div class="row align-items-center gy-5">
             <div class="col-lg-6" data-aos="fade-right">
-                <span class="hero-small-text">Trusted, Safe & Comfortable</span>
+                <span class="hero-small-text">Trusted. Safe. Comfortable.</span>
                 <h1 class="hero-title hero-title-light">Ride Easy Ride Choudhary's</h1>
-                <p class="hero-subtitle hero-subtitle-light">Safe, affordable rides.</p>
-                <a href="{% url 'booking:book' %}" class="btn btn-hero btn-lg mt-4">Book Now</a>
+                <p class="hero-subtitle hero-subtitle-light">Your trusted travel partner for outstation cab services across Rajasthan and beyond.</p>
+                
+                <ul class="hero-features-v2">
+                    <li class="hero-feature-item-v2">
+                        <i class="bi bi-shield-check"></i>
+                        <span>Safe & Reliable</span>
+                    </li>
+                    <li class="hero-feature-item-v2">
+                        <i class="bi bi-cash-coin"></i>
+                        <span>Affordable Pricing</span>
+                    </li>
+                    <li class="hero-feature-item-v2">
+                        <i class="bi bi-person-badge"></i>
+                        <span>Experienced Drivers</span>
+                    </li>
+                </ul>
+
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{% url 'booking:book' %}" class="btn btn-accent px-4 py-2.5 fs-6 fw-bold">
+                        <i class="bi bi-calendar-check me-2"></i>Book Your Ride
+                    </a>
+                    <a href="#fleet" class="btn btn-outline-dark px-4 py-2.5 fs-6 fw-bold border-2">
+                        Explore Services
+                    </a>
+                </div>
             </div>
             <div class="col-lg-6" data-aos="fade-left">
-                <div class="hero-image-card">
-                    <img src="{% static 'images/car1.jpg' %}" alt="Modern SUV" class="img-fluid hero-image">
-                </div>
+                <img src="{% static 'images/hero_car.png' %}" alt="Choudhary Travels Hero Car" class="img-fluid rounded-4">
             </div>
         </div>
     </div>
 </section>
 
-<!-- Why Choose Us -->
-<section class="section-padding bg-light why-section">
+<!-- Info Cards Section -->
+<section class="info-card-grid">
     <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="section-title">Why Choose Us</h2>
-        </div>
         <div class="row g-4">
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="why-card h-100">
-                    <div class="why-icon">💰</div>
-                    <h5>Affordable Pricing</h5>
-                    <p>No hidden charges. Transparent pricing.</p>
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="info-card-v2">
+                    <div class="info-card-icon-v2">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <div class="info-card-content-v2">
+                        <h6>Outstation Cabs</h6>
+                        <p>One-way & round trip across India.</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="why-card h-100">
-                    <div class="why-icon">⏱️</div>
-                    <h5>Reliable Service</h5>
-                    <p>On-time pickup and safe travel experience.</p>
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="info-card-v2">
+                    <div class="info-card-icon-v2">
+                        <i class="bi bi-briefcase"></i>
+                    </div>
+                    <div class="info-card-content-v2">
+                        <h6>Corporate Travel</h6>
+                        <p>Reliable travel for businesses.</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="why-card h-100">
-                    <div class="why-icon">📲</div>
-                    <h5>Easy Booking</h5>
-                    <p>Simple and fast booking process.</p>
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="info-card-v2">
+                    <div class="info-card-icon-v2">
+                        <i class="bi bi-airplane"></i>
+                    </div>
+                    <div class="info-card-content-v2">
+                        <h6>Airport Transfers</h6>
+                        <p>Timely pickups and drop-offs.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="info-card-v2">
+                    <div class="info-card-icon-v2">
+                        <i class="bi bi-headset"></i>
+                    </div>
+                    <div class="info-card-content-v2">
+                        <h6>24/7 Support</h6>
+                        <p>We're here anytime you need.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Featured Vehicles -->
-<section class="section-padding">
+<!-- About Us Section -->
+<section class="section-padding" id="about">
+    <div class="container">
+        <div class="row align-items-center gy-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <span class="text-accent-orange mb-2 d-block">About Us</span>
+                <h2 class="section-title fw-bold mb-4">Your Journey,<br>Our Responsibility</h2>
+                <p class="text-muted mb-4" style="line-height: 1.8;">
+                    Choudhary's Travels is committed to providing safe, comfortable, and affordable travel experiences. With well-maintained vehicles, professional drivers, and customer-first service, we ensure every journey is a pleasant one.
+                </p>
+                <a href="{% url 'booking:about' %}" class="btn btn-accent px-4 py-2.5 fw-bold">Know More About Us</a>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="about-img-wrap-v2">
+                    <img src="{% static 'images/about_car.png' %}" alt="About Choudhary Travels" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Fleet Section -->
+<section class="section-padding bg-light" id="fleet">
     <div class="container">
         <div class="text-center mb-5" data-aos="fade-up">
             <span class="section-label">Our Fleet</span>
-            <h2 class="section-title">Featured Vehicles</h2>
+            <h2 class="section-title">Well-Maintained Cars for Every Journey</h2>
+            <p class="text-muted">Travel in comfort with our clean, safe & reliable cars.</p>
         </div>
-        <div class="row g-4">
-            {% for vehicle in featured_vehicles %}
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:0 }}00">
-                {% include 'booking/partials/vehicle_card.html' with vehicle=vehicle %}
-            </div>
-            {% empty %}
+        <div class="row justify-content-center" data-aos="fade-up">
             <div class="col-12">
-                <p class="text-center">No featured vehicles available at the moment.</p>
+                <div class="single-car-showcase-v2">
+                    <div class="single-car-grid">
+                        <div class="single-car-img-wrap-v2">
+                            {% if featured_vehicles.0.image %}
+                            <img src="{{ featured_vehicles.0.image.url }}" alt="Mahindra Bolero Neo" onerror="this.onerror=null; this.src='{% static 'images/car.png' %}';">
+                            {% else %}
+                            <img src="{% static 'images/car.png' %}" alt="Mahindra Bolero Neo">
+                            {% endif %}
+                            <span class="single-car-badge-v2" style="position: absolute; top: 1.5rem; left: 1.5rem; z-index: 10;">SUV</span>
+                        </div>
+                        <div class="single-car-body-v2">
+                            <span class="single-car-badge-v2">SUV / 7-Seater</span>
+                            <h3 class="single-car-title-v2">Mahindra Bolero Neo</h3>
+                            <p class="single-car-desc-v2">A tough and reliable SUV for all kinds of Indian roads. Great for family trips, outstations, and adventures.</p>
+                            
+                            <div class="single-car-meta-v2">
+                                <div class="single-car-meta-item-v2">
+                                    <i class="bi bi-people-fill"></i>
+                                    <span>7 Seats</span>
+                                </div>
+                                <div class="single-car-meta-item-v2">
+                                    <i class="bi bi-speedometer2"></i>
+                                    <span>₹20/km</span>
+                                </div>
+                                <div class="single-car-meta-item-v2">
+                                    <i class="bi bi-snow"></i>
+                                    <span>Fully AC</span>
+                                </div>
+                            </div>
+                            
+                            <div class="single-car-features-v2">
+                                <span class="single-car-feature-tag-v2">Music System</span>
+                                <span class="single-car-feature-tag-v2">GPS Navigation</span>
+                                <span class="single-car-feature-tag-v2">Power Windows</span>
+                                <span class="single-car-feature-tag-v2">Ample Luggage</span>
+                            </div>
+                            
+                            <div class="single-car-footer-v2">
+                                <div class="single-car-price-v2">
+                                    ₹3000<span>/day</span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="{% url 'booking:book' %}" class="btn btn-accent px-4 py-2.5 fw-bold">Book Now</a>
+                                    <a href="https://wa.me/{{ business_whatsapp }}?text=Hi%2C%20I%20want%20to%20book%20Mahindra%20Bolero%20Neo" class="btn btn-outline-success px-4 py-2.5 fw-bold" target="_blank" rel="noopener">
+                                        <i class="bi bi-whatsapp me-2"></i>WhatsApp
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            {% endfor %}
-        </div>
-        <div class="text-center mt-5">
-            <a href="{% url 'booking:fleet' %}" class="btn btn-outline-primary">View All Vehicles</a>
         </div>
     </div>
 </section>
-
-<!-- Services -->
-<section class="section-padding bg-light">
-    <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <span class="section-label">What We Offer</span>
-            <h2 class="section-title">Our Travel Services</h2>
-        </div>
-        <div class="row g-4">
-            {% for service in services %}
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:0 }}00">
-                <div class="service-card h-100">
-                    <div class="service-icon"><i class="bi {{ service.icon }}"></i></div>
-                    <h5>{{ service.title }}</h5>
-                    <p>{{ service.description }}</p>
-                </div>
-            </div>
-            {% empty %}
-            <div class="col-md-4" data-aos="fade-up">
-                <div class="service-card h-100">
-                    <div class="service-icon"><i class="bi bi-signpost-split"></i></div>
-                    <h5>Outstation Trips</h5>
-                    <p>Comfortable long-distance travel to any city in India with experienced drivers.</p>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="service-card h-100">
-                    <div class="service-icon"><i class="bi bi-airplane"></i></div>
-                    <h5>Airport Transfers</h5>
-                    <p>On-time pickup and drop to all major airports. Track your flight, we track your ride.</p>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="service-card h-100">
-                    <div class="service-icon"><i class="bi bi-heart"></i></div>
-                    <h5>Wedding & Events</h5>
-                    <p>Decorate your special day with our premium fleet and professional chauffeurs.</p>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-
 
 <!-- Why Choose Us -->
-<section class="section-padding bg-primary-dark text-white">
+<section class="section-padding" id="why-choose-us">
     <div class="container">
-        <div class="row align-items-center g-5">
-            <div class="col-lg-6" data-aos="fade-right">
-                <span class="section-label text-warning">Why Choose Us</span>
-                <h2 class="section-title text-white">Travel With Confidence</h2>
-                <p class="text-white-50">For over a decade, Choudhary Travels has been the preferred choice for families, corporates, and tourists across Rajasthan and beyond.</p>
-                <ul class="check-list mt-4">
-                    <li><i class="bi bi-check-circle-fill"></i> GPS-enabled, well-maintained vehicles</li>
-                    <li><i class="bi bi-check-circle-fill"></i> Verified & experienced drivers</li>
-                    <li><i class="bi bi-check-circle-fill"></i> Transparent pricing — no hidden charges</li>
-                    <li><i class="bi bi-check-circle-fill"></i> 24/7 customer support on call & WhatsApp</li>
-                    <li><i class="bi bi-check-circle-fill"></i> Flexible payment options</li>
-                </ul>
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="text-accent-orange mb-2 d-block">Why Choose Us</span>
+            <h2 class="section-title fw-bold">Your Comfort is Our Priority</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="why-us-card-v2">
+                    <div class="why-us-icon-v2">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h5>Safe & Secure</h5>
+                    <p>Your safety is our highest priority. All vehicles are GPS tracked.</p>
+                </div>
             </div>
-            <div class="col-lg-6" data-aos="fade-left">
-                <div class="feature-grid">
-                    <div class="feature-box"><i class="bi bi-shield-check"></i><span>Safe Travel</span></div>
-                    <div class="feature-box"><i class="bi bi-cash-coin"></i><span>Best Rates</span></div>
-                    <div class="feature-box"><i class="bi bi-clock-history"></i><span>On Time</span></div>
-                    <div class="feature-box"><i class="bi bi-headset"></i><span>24/7 Help</span></div>
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="why-us-card-v2">
+                    <div class="why-us-icon-v2">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                    <h5>Professional Drivers</h5>
+                    <p>Experienced, verified & courteous drivers for a smooth journey.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="why-us-card-v2">
+                    <div class="why-us-icon-v2">
+                        <i class="bi bi-cash-coin"></i>
+                    </div>
+                    <h5>Transparent Pricing</h5>
+                    <p>No hidden charges, 100% transparent rates and billing.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="why-us-card-v2">
+                    <div class="why-us-icon-v2">
+                        <i class="bi bi-emoji-smile"></i>
+                    </div>
+                    <h5>Customer Satisfaction</h5>
+                    <p>Thousands of happy customers trust us for their travel needs.</p>
                 </div>
             </div>
         </div>
@@ -153,44 +232,90 @@
 </section>
 
 <!-- Testimonials -->
-{% if testimonials %}
-<section class="section-padding bg-light">
+<section class="section-padding bg-light" id="testimonials">
     <div class="container">
         <div class="text-center mb-5" data-aos="fade-up">
-            <span class="section-label">Testimonials</span>
-            <h2 class="section-title">What Our Customers Say</h2>
+            <span class="text-accent-orange mb-2 d-block">Testimonials</span>
+            <h2 class="section-title fw-bold">What Our Customers Say</h2>
         </div>
         <div class="row g-4">
-            {% for t in testimonials %}
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:0 }}00">
-                <div class="testimonial-card h-100">
-                    <div class="stars mb-2">
-                        {% for i in "12345" %}
-                        <i class="bi bi-star{% if forloop.counter <= t.rating %}-fill{% endif %}"></i>
-                        {% endfor %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-card-v2">
+                    <div>
+                        <div class="testimonial-stars-v2">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="testimonial-text-v2">"Excellent service! The car was clean, driver was polite and the journey was very comfortable."</p>
                     </div>
-                    <p class="review-text">"{{ t.review }}"</p>
-                    <div class="reviewer">
-                        <strong>{{ t.customer_name }}</strong>
-                        {% if t.location %}<small class="text-muted d-block">{{ t.location }}</small>{% endif %}
+                    <div class="testimonial-user-v2">
+                        <div class="testimonial-avatar-v2">RS</div>
+                        <div class="testimonial-info-v2">
+                            <h6>Rajesh Sharma</h6>
+                            <small>Jaipur</small>
+                        </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-card-v2">
+                    <div>
+                        <div class="testimonial-stars-v2">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="testimonial-text-v2">"Reliable and punctual service. Highly recommend Choudhary's Travels for outstation trips."</p>
+                    </div>
+                    <div class="testimonial-user-v2">
+                        <div class="testimonial-avatar-v2">PV</div>
+                        <div class="testimonial-info-v2">
+                            <h6>Priya Verma</h6>
+                            <small>Bangalore</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="testimonial-card-v2">
+                    <div>
+                        <div class="testimonial-stars-v2">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="testimonial-text-v2">"Very good experience. Affordable prices and professional behavior."</p>
+                    </div>
+                    <div class="testimonial-user-v2">
+                        <div class="testimonial-avatar-v2">AS</div>
+                        <div class="testimonial-info-v2">
+                            <h6>Amit Soni</h6>
+                            <small>Delhi</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-{% endif %}
 
-<!-- CTA -->
-<section class="cta-section">
-    <div class="container text-center" data-aos="zoom-in">
-        <h2 class="text-white mb-3">Ready to Hit the Road?</h2>
-        <p class="text-white-50 mb-4">Book your ride in minutes. Call us or send a WhatsApp message anytime.</p>
-        <div class="d-flex flex-wrap justify-content-center gap-3">
-            <a href="{% url 'booking:book' %}" class="btn btn-accent btn-lg">Book Now</a>
-            <a href="https://wa.me/{{ business_whatsapp }}" class="btn btn-outline-light btn-lg" target="_blank" rel="noopener">
-                <i class="bi bi-whatsapp me-2"></i>WhatsApp
+<!-- CTA Section -->
+<section class="section-padding">
+    <div class="container" data-aos="zoom-in">
+        <div class="cta-banner-v2 d-flex flex-column flex-lg-row align-items-center justify-content-between gap-4">
+            <div>
+                <h2>Ready to Book Your Ride?</h2>
+                <p>Choose your destination and enjoy a hassle-free journey with Choudhary Travels.</p>
+            </div>
+            <a href="{% url 'booking:book' %}" class="btn btn-light btn-lg px-5 py-3 fw-bold text-accent shadow">
+                <i class="bi bi-calendar-check me-2"></i>Book Now
             </a>
         </div>
     </div>
