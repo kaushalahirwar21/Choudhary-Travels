@@ -53,18 +53,34 @@
                     <small class="d-block brand-tagline">{{ business_tagline|truncatewords:5 }}</small>
                 </span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="toggler-icon-bar top-bar"></span>
+                <span class="toggler-icon-bar middle-bar"></span>
+                <span class="toggler-icon-bar bottom-bar"></span>
             </button>
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto gap-2 py-2 py-lg-0 align-items-lg-center">
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'booking:home' %}">Home</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'booking:home' %}">
+                            <i class="bi bi-house-door d-inline-block d-lg-none me-2"></i>Home
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'booking:about' %}">About</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'fleet' or request.resolver_match.url_name == 'vehicle_detail' %}active{% endif %}" href="{% url 'booking:fleet' %}">
+                            <i class="bi bi-car-front d-inline-block d-lg-none me-2"></i>Fleet
+                        </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'booking:about' %}">
+                            <i class="bi bi-info-circle d-inline-block d-lg-none me-2"></i>About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'booking:contact' %}">
+                            <i class="bi bi-telephone d-inline-block d-lg-none me-2"></i>Contact
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 mt-lg-0">
                         <a class="btn btn-accent px-4 w-100 w-lg-auto" href="{% url 'booking:book' %}">
                             <i class="bi bi-calendar-check me-1"></i>Book Now
                         </a>

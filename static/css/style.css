@@ -131,24 +131,118 @@ body {
     color: var(--accent) !important;
 }
 
-/* Fix for invisible mobile menu button (toggler) */
+/* Modern Animating Mobile Menu Button (Toggler) */
 .main-nav .navbar-toggler {
-    border-color: rgba(0, 0, 0, 0.15);
+    border: none;
+    padding: 0.25rem;
+    width: 24px;
+    height: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: transparent;
+    transition: transform 0.25s ease;
 }
 
-.main-nav .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(31, 41, 55, 0.7)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+.main-nav .navbar-toggler:focus {
+    box-shadow: none;
+    outline: none;
 }
 
-/* Mobile navbar container float card */
+.main-nav .toggler-icon-bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--primary);
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform-origin: center;
+}
+
+/* Morphing hamburger lines into 'X' when menu is open */
+.main-nav .navbar-toggler:not(.collapsed) .top-bar {
+    transform: translateY(8px) rotate(45deg);
+    background-color: var(--accent);
+}
+
+.main-nav .navbar-toggler:not(.collapsed) .middle-bar {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.main-nav .navbar-toggler:not(.collapsed) .bottom-bar {
+    transform: translateY(-8px) rotate(-45deg);
+    background-color: var(--accent);
+}
+
+/* Mobile navbar container — Modern Glassmorphism Drawer Card */
 @media (max-width: 991px) {
     .main-nav .navbar-collapse {
-        background: #ffffff;
-        padding: 1.25rem;
-        border-radius: var(--radius);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-        margin-top: 0.75rem;
-        border: 1px solid rgba(0, 0, 0, 0.05);
+        background: rgba(255, 255, 255, 0.96) !important;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        padding: 1.5rem !important;
+        border-radius: 20px !important;
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12) !important;
+        margin-top: 1rem !important;
+        border: 1px solid rgba(255, 255, 255, 0.8) !important;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .main-nav .navbar-nav {
+        gap: 0.5rem !important;
+    }
+
+    .main-nav .nav-link {
+        font-size: 0.95rem;
+        font-weight: 550;
+        padding: 0.75rem 1.25rem !important;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        background: transparent;
+        border-left: 3px solid transparent;
+        transition: all 0.25s ease;
+    }
+
+    .main-nav .nav-link:hover,
+    .main-nav .nav-link:focus {
+        background: rgba(249, 115, 22, 0.05);
+        color: var(--accent) !important;
+        border-left-color: var(--accent);
+        padding-left: 1.5rem !important;
+    }
+
+    .main-nav .nav-link.active {
+        background: var(--accent-light) !important;
+        color: var(--accent-dark) !important;
+        border-left-color: var(--accent);
+        font-weight: 600;
+        padding-left: 1.5rem !important;
+    }
+
+    /* Staggered entrance animations for nav items */
+    .main-nav .navbar-collapse.show .nav-item {
+        animation: navLinkFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+    }
+
+    .main-nav .navbar-collapse.show .nav-item:nth-child(1) { animation-delay: 0.05s; }
+    .main-nav .navbar-collapse.show .nav-item:nth-child(2) { animation-delay: 0.1s; }
+    .main-nav .navbar-collapse.show .nav-item:nth-child(3) { animation-delay: 0.15s; }
+    .main-nav .navbar-collapse.show .nav-item:nth-child(4) { animation-delay: 0.2s; }
+    .main-nav .navbar-collapse.show .nav-item:nth-child(5) { animation-delay: 0.25s; }
+    .main-nav .navbar-collapse.show .nav-item:nth-child(6) { animation-delay: 0.3s; }
+}
+
+@keyframes navLinkFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -1266,4 +1360,121 @@ body {
 .footer-divider-v2 {
     border-color: rgba(255, 255, 255, 0.08);
     margin: 3rem 0 1.5rem;
+}
+
+/* Profile Cards on About Us Page */
+.profile-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+    border-color: rgba(249, 115, 22, 0.15);
+}
+
+.profile-card-image-wrap {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+}
+
+.profile-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.5s ease;
+}
+
+.profile-card:hover .profile-card-image {
+    transform: scale(1.06);
+}
+
+.profile-badge {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: var(--accent);
+    color: #ffffff;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+    z-index: 2;
+}
+
+.profile-badge.developer-badge {
+    background: var(--primary);
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.3);
+}
+
+.profile-card-body {
+    padding: 1.75rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-name {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 2px;
+}
+
+.profile-role {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+}
+
+.profile-desc {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+}
+
+.profile-socials {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.profile-social-link {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--light-bg);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.profile-social-link:hover {
+    background: var(--accent);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.2);
+}
+
+.bg-orange-light {
+    background-color: var(--accent-light);
 }
