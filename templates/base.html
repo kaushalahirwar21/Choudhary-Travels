@@ -17,7 +17,7 @@
     <!-- AOS -->
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{% static 'css/style_v2.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style_v3.css' %}" rel="stylesheet">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -53,17 +53,16 @@
                     <small class="d-block brand-tagline">{{ business_tagline }}</small>
                 </span>
             </a>
-            <button class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-between" 
+            <button class="navbar-toggler collapsed d-inline-flex d-lg-none align-items-center justify-content-center" 
                     type="button" 
                     data-bs-toggle="collapse" 
                     data-bs-target="#mainNav" 
                     aria-controls="mainNav" 
                     aria-expanded="false" 
                     aria-label="Toggle navigation"
-                    style="background: transparent !important; background-color: transparent !important; border: none !important; box-shadow: none !important; outline: none !important; padding: 0 !important; width: 24px !important; height: 18px !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; align-items: center !important;">
-                <span class="toggler-icon-bar top-bar" style="display: block !important; width: 24px !important; height: 2px !important; background-color: #0f172a !important; border-radius: 4px; transition: all 0.3s ease;"></span>
-                <span class="toggler-icon-bar middle-bar" style="display: block !important; width: 24px !important; height: 2px !important; background-color: #0f172a !important; border-radius: 4px; transition: all 0.3s ease;"></span>
-                <span class="toggler-icon-bar bottom-bar" style="display: block !important; width: 24px !important; height: 2px !important; background-color: #0f172a !important; border-radius: 4px; transition: all 0.3s ease;"></span>
+                    style="border: none !important; background: transparent !important; background-color: transparent !important; box-shadow: none !important; outline: none !important; padding: 0 !important;">
+                <i class="bi bi-list burger-icon" style="font-size: 2.2rem; color: #0f172a; line-height: 1;"></i>
+                <i class="bi bi-x close-icon" style="font-size: 2.2rem; color: #0f172a; line-height: 1; display: none;"></i>
             </button>
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto gap-2 py-2 py-lg-0 align-items-lg-center">
