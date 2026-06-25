@@ -232,6 +232,7 @@
 </section>
 
 <!-- Testimonials -->
+{% if testimonials %}
 <section class="section-padding bg-light" id="testimonials">
     <div class="container">
         <div class="text-center mb-5" data-aos="fade-up">
@@ -239,72 +240,33 @@
             <h2 class="section-title fw-bold">What Our Customers Say</h2>
         </div>
         <div class="row g-4">
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            {% for t in testimonials %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
                 <div class="testimonial-card-v2">
                     <div>
                         <div class="testimonial-stars-v2">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+                            {% for i in "12345" %}
+                            <i class="bi bi-star{% if forloop.counter <= t.rating %}-fill{% endif %}"></i>
+                            {% endfor %}
                         </div>
-                        <p class="testimonial-text-v2">"Excellent service! The car was clean, driver was polite and the journey was very comfortable."</p>
+                        <p class="testimonial-text-v2">"{{ t.review }}"</p>
                     </div>
                     <div class="testimonial-user-v2">
-                        <div class="testimonial-avatar-v2">RS</div>
+                        <div class="testimonial-avatar-v2">
+                            {{ t.customer_name|slice:":2"|upper }}
+                        </div>
                         <div class="testimonial-info-v2">
-                            <h6>Rajesh Sharma</h6>
-                            <small>Jaipur</small>
+                            <h6>{{ t.customer_name }}</h6>
+                            {% if t.location %}<small>{{ t.location }}</small>{% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="testimonial-card-v2">
-                    <div>
-                        <div class="testimonial-stars-v2">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                        </div>
-                        <p class="testimonial-text-v2">"Reliable and punctual service. Highly recommend Choudhary's Travels for outstation trips."</p>
-                    </div>
-                    <div class="testimonial-user-v2">
-                        <div class="testimonial-avatar-v2">PV</div>
-                        <div class="testimonial-info-v2">
-                            <h6>Priya Verma</h6>
-                            <small>Bangalore</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="testimonial-card-v2">
-                    <div>
-                        <div class="testimonial-stars-v2">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                        </div>
-                        <p class="testimonial-text-v2">"Very good experience. Affordable prices and professional behavior."</p>
-                    </div>
-                    <div class="testimonial-user-v2">
-                        <div class="testimonial-avatar-v2">AS</div>
-                        <div class="testimonial-info-v2">
-                            <h6>Amit Soni</h6>
-                            <small>Delhi</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- CTA Section -->
 <section class="section-padding">
