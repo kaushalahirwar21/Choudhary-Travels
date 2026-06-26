@@ -56,6 +56,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Restrict email inputs to only valid email characters (prevent emojis/spaces)
+    const emailInputs = document.querySelectorAll('#id_email, input[type="email"]');
+    emailInputs.forEach(function (input) {
+        input.addEventListener('input', function () {
+            this.value = this.value.replace(/[^a-zA-Z0-9@._\-+]/g, '');
+        });
+    });
+
+    // Restrict location and message fields from containing emojis/symbols
+    const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|[\u2600-\u27BF]/g;
+    const generalInputs = document.querySelectorAll('#id_pickup_location, #id_drop_location, #id_message, #id_subject, textarea');
+    generalInputs.forEach(function (input) {
+        input.addEventListener('input', function () {
+            this.value = this.value.replace(emojiRegex, '');
+        });
+    });
+
     // Booking form enhancements
     initBookingForm();
 });

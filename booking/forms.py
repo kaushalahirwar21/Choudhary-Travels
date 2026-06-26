@@ -7,6 +7,17 @@ from django.db.models import Q
 from .models import Booking, ContactMessage, Vehicle, VehicleCategory
 
 
+def validate_no_emojis(value):
+    """Raise ValidationError if the string contains any emojis or dingbat symbols."""
+    if not value:
+        return
+    import re
+    # Match any surrogate pairs (outside BMP) or dingbats/miscellaneous symbols
+    emoji_pattern = re.compile(r'[\U00010000-\U0010ffff]|[\u2600-\u27bf]')
+    if emoji_pattern.search(value):
+        raise ValidationError('Emojis or special symbols are not allowed.')
+
+
 class VehicleSelectWidget(forms.Select):
     def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
         option = super().create_option(name, value, label, selected, index, subindex, attrs)
@@ -186,6 +197,16 @@ class BookingForm(forms.ModelForm):
                     f'❌ This vehicle is unavailable on selected dates. Conflicts: {conflict_dates}',
                 )
         
+        # Validate that fields do not contain emojis or symbols
+        fields_to_check = ['customer_name', 'pickup_location', 'drop_location', 'message', 'email']
+        for field in fields_to_check:
+            val = cleaned.get(field)
+            if val:
+                try:
+                    validate_no_emojis(val)
+                except ValidationError as e:
+                    self.add_error(field, e)
+
         return cleaned
 
     def clean_customer_name(self):
@@ -369,3 +390,15 @@ class ContactForm(forms.ModelForm):
             raise ValidationError('Phone number must start with 6, 7, 8, or 9.')
         
         return phone
+
+    def clean(self):
+        cleaned = super().clean()
+        fields_to_check = ['name', 'subject', 'message', 'email']
+        for field in fields_to_check:
+            val = cleaned.get(field)
+            if val:
+                try:
+                    validate_no_emojis(val)
+                except ValidationError as e:
+                    self.add_error(field, e)
+        return cleaned
