@@ -72,6 +72,40 @@ document.addEventListener('DOMContentLoaded', function () {
             this.value = this.value.replace(emojiRegex, '');
         });
     });
+    // Scroll-linked driving car animation
+    const scrollCar = document.getElementById('scroll-car');
+    if (scrollCar) {
+        // Entrance animation: drive the car onto the screen from left
+        setTimeout(() => {
+            scrollCar.style.transition = 'left 1.5s cubic-bezier(0.25, 1, 0.5, 1)';
+            scrollCar.classList.add('driving');
+            
+            // Calculate initial scroll position
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            let initialPercent = 0;
+            if (docHeight > 0) {
+                initialPercent = (scrollTop / docHeight) * 100;
+            }
+            const startPos = 2 + (initialPercent * 0.96);
+            scrollCar.style.left = startPos + '%';
+            
+            // After entrance completes, switch to active scroll tracking
+            setTimeout(() => {
+                scrollCar.style.transition = 'left 0.1s ease-out';
+                
+                window.addEventListener('scroll', function () {
+                    const scrollTop = window.scrollY;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    if (docHeight > 0) {
+                        const scrollPercent = (scrollTop / docHeight) * 100;
+                        const carPos = 2 + (scrollPercent * 0.96);
+                        scrollCar.style.left = carPos + '%';
+                    }
+                });
+            }, 1500);
+        }, 400);
+    }
 
     // Booking form enhancements
     initBookingForm();
