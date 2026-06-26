@@ -7,6 +7,22 @@ from django.db.models import Q
 from .models import Booking, ContactMessage, Vehicle, VehicleCategory
 
 
+class VehicleSelectWidget(forms.Select):
+    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
+        option = super().create_option(name, value, label, selected, index, subindex, attrs)
+        if value:
+            val_id = value.value if hasattr(value, 'value') else value
+            try:
+                queryset = getattr(self.choices, 'queryset', None)
+                if queryset:
+                    vehicle = queryset.get(pk=val_id)
+                    option['attrs']['data-price-per-km'] = str(vehicle.price_per_km)
+                    option['attrs']['data-price-per-day'] = str(vehicle.price_per_day)
+            except Exception:
+                pass
+        return option
+
+
 class BookingForm(forms.ModelForm):
     """
     Customer booking request form.
@@ -77,7 +93,7 @@ class BookingForm(forms.ModelForm):
                 'class': 'form-control',
                 'type': 'time',
             }),
-            'vehicle': forms.Select(attrs={'class': 'form-select'}),
+            'vehicle': VehicleSelectWidget(attrs={'class': 'form-select'}),
             'passengers': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'min': '1',

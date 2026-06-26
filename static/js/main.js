@@ -134,8 +134,52 @@ function initPriceCalculator() {
     var pickupDate = document.getElementById('id_pickup_date');
     var returnDate = document.getElementById('id_return_date');
     var tripType = document.getElementById('id_trip_type');
+    var pickupLocInput = document.getElementById('id_pickup_location');
+    var dropLocInput = document.getElementById('id_drop_location');
 
-    function calculatePrice() {
+    var lastPickup = '';
+    var lastDrop = '';
+    var cachedDistanceKm = null;
+    var isCalculating = false;
+
+    async function getCoordinates(query) {
+        try {
+            // Prioritize India if country is not specified
+            const searchQuery = query.toLowerCase().includes('india') ? query : query + ', India';
+            const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(searchQuery);
+            const response = await fetch(url, {
+                headers: {
+                    'Accept-Language': 'en'
+                }
+            });
+            const data = await response.json();
+            if (data && data.length > 0) {
+                return {
+                    lat: parseFloat(data[0].lat),
+                    lon: parseFloat(data[0].lon)
+                };
+            }
+        } catch (error) {
+            console.error('Geocoding error:', error);
+        }
+        return null;
+    }
+
+    async function getRouteDistance(p1, p2) {
+        try {
+            const url = 'https://router.project-osrm.org/route/v1/driving/' + p1.lon + ',' + p1.lat + ';' + p2.lon + ',' + p2.lat + '?overview=false';
+            const response = await fetch(url);
+            const data = await response.json();
+            if (data && data.routes && data.routes.length > 0) {
+                return data.routes[0].distance; // in meters
+            }
+        } catch (error) {
+            console.error('Routing error:', error);
+        }
+        return null;
+    }
+
+    async function calculatePrice() {
         if (!vehicleSelect.value) {
             priceDisplay.innerHTML = '<span class="text-muted">Select a vehicle</span>';
             return;
@@ -145,6 +189,8 @@ function initPriceCalculator() {
         var dropoff = returnDate ? returnDate.value : '';
         var trip = tripType ? tripType.value : 'one_way';
         var vehicle = vehicleData[vehicleSelect.value];
+        var pickupLoc = pickupLocInput ? pickupLocInput.value.trim() : '';
+        var dropLoc = dropLocInput ? dropLocInput.value.trim() : '';
 
         if (!pickup) {
             priceDisplay.innerHTML = '<span class="text-muted">Select pickup date</span>';
@@ -163,16 +209,73 @@ function initPriceCalculator() {
 
         if (days < 1) days = 1;
 
-        // For simplicity, use price_per_day
-        var estimatedPrice = vehicle.price_per_day * days;
+        // If local trip, use price_per_day
+        if (trip === 'local') {
+            var estimatedPrice = vehicle.price_per_day * days;
+            priceDisplay.innerHTML = '₹<strong>' + estimatedPrice.toLocaleString('en-IN') + '</strong> (approx. local package for ' + days + ' day' + (days > 1 ? 's' : '') + ')';
+            return;
+        }
 
-        priceDisplay.innerHTML = '₹<strong>' + estimatedPrice.toLocaleString('en-IN') + '</strong> (approx.)';
+        // For outstation (one_way or round_trip), calculate by distance
+        if (pickupLoc && dropLoc) {
+            if (pickupLoc !== lastPickup || dropLoc !== lastDrop) {
+                if (isCalculating) return;
+                isCalculating = true;
+                priceDisplay.innerHTML = '<span class="spinner-border spinner-border-sm text-warning me-2"></span><span class="text-muted">Calculating distance & fare...</span>';
+                
+                const p1 = await getCoordinates(pickupLoc);
+                const p2 = await getCoordinates(dropLoc);
+                
+                if (p1 && p2) {
+                    const distanceMeters = await getRouteDistance(p1, p2);
+                    if (distanceMeters !== null) {
+                        cachedDistanceKm = Math.round(distanceMeters / 1000);
+                        lastPickup = pickupLoc;
+                        lastDrop = dropLoc;
+                    } else {
+                        cachedDistanceKm = null;
+                    }
+                } else {
+                    cachedDistanceKm = null;
+                }
+                isCalculating = false;
+            }
+
+            if (cachedDistanceKm !== null) {
+                var distance = cachedDistanceKm;
+                var totalDistance = trip === 'round_trip' ? distance * 2 : distance;
+                var estimatedPrice = totalDistance * vehicle.price_per_km;
+
+                // Enforce minimum rate equivalent to daily package if calculation is very low
+                if (estimatedPrice < vehicle.price_per_day) {
+                    estimatedPrice = vehicle.price_per_day;
+                }
+
+                var tripText = trip === 'round_trip' ? 'round trip ~' + (distance * 2) + ' km' : 'one way ~' + distance + ' km';
+                priceDisplay.innerHTML = '₹<strong>' + Math.round(estimatedPrice).toLocaleString('en-IN') + '</strong> (approx. for ' + tripText + ')';
+            } else {
+                // Fallback to day-based package if route API fails
+                var estimatedPrice = vehicle.price_per_day * days;
+                priceDisplay.innerHTML = '₹<strong>' + estimatedPrice.toLocaleString('en-IN') + '</strong> (approx. day package fallback)';
+            }
+        } else {
+            priceDisplay.innerHTML = '<span class="text-muted">Enter pickup & drop locations to calculate fare</span>';
+        }
     }
 
     if (vehicleSelect) vehicleSelect.addEventListener('change', calculatePrice);
     if (pickupDate) pickupDate.addEventListener('change', calculatePrice);
     if (returnDate) returnDate.addEventListener('change', calculatePrice);
     if (tripType) tripType.addEventListener('change', calculatePrice);
+    
+    if (pickupLocInput) {
+        pickupLocInput.addEventListener('change', calculatePrice);
+        pickupLocInput.addEventListener('blur', calculatePrice);
+    }
+    if (dropLocInput) {
+        dropLocInput.addEventListener('change', calculatePrice);
+        dropLocInput.addEventListener('blur', calculatePrice);
+    }
 
     // Initial calculation
     calculatePrice();
