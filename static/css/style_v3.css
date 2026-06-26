@@ -1542,9 +1542,9 @@ body {
 .scroll-car {
     position: absolute;
     bottom: 4px;
-    left: -50px; /* Start offscreen for entrance animation */
-    width: 48px;
-    height: 20px;
+    left: -70px; /* Start further offscreen because of larger width */
+    width: 60px;
+    height: 24px;
     transform: translateX(-50%);
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
     z-index: 10000;
