@@ -22,37 +22,12 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- Pre-loader -->
-    <div id="preloader">
-        <div class="loader-content">
-            <img src="{% static 'images/logo.png' %}" alt="Loading..." class="loader-logo">
-        </div>
-    </div>
-
-    <!-- Top bar -->
-    <div class="top-bar d-none d-md-block">
-        <div class="container d-flex justify-content-between align-items-center">
-            <div class="d-flex gap-4">
-                <a href="tel:{{ business_phone }}" class="top-link"><i class="bi bi-telephone-fill me-1"></i>{{ business_phone }}</a>
-                <a href="mailto:{{ business_email }}" class="top-link"><i class="bi bi-envelope-fill me-1"></i>{{ business_email }}</a>
-            </div>
-            <div>
-                <a href="https://wa.me/{{ business_whatsapp }}" target="_blank" rel="noopener" class="top-link">
-                    <i class="bi bi-whatsapp me-1"></i>WhatsApp Us
-                </a>
-            </div>
-        </div>
-    </div>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top main-nav">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'booking:home' %}">
                 <img src="{% static 'images/logo.png' %}" alt="{{ business_name }} Logo" class="brand-logo">
-                <span>
-                    <strong>{{ business_name }}</strong>
-                    <small class="d-block brand-tagline">{{ business_tagline }}</small>
-                </span>
             </a>
             <button class="navbar-toggler collapsed d-inline-flex d-lg-none align-items-center justify-content-center" 
                     type="button" 

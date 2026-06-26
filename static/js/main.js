@@ -3,18 +3,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Pre-loader fade out
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        window.addEventListener('load', () => {
-            preloader.classList.add('fade-out');
-            // Remove from DOM after animation
-            preloader.addEventListener('transitionend', () => {
-                preloader.remove();
-            });
-        });
-    }
-
     // Initialize AOS animations
     if (typeof AOS !== 'undefined') {
         AOS.init({
@@ -51,6 +39,21 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!input.min) {
             input.min = today;
         }
+    });
+    // Restrict name inputs to only alphabets, spaces, dots, hyphens, and apostrophes (prevent numbers/emojis)
+    const nameInputs = document.querySelectorAll('#id_customer_name, #id_name');
+    nameInputs.forEach(function (input) {
+        input.addEventListener('input', function () {
+            this.value = this.value.replace(/[^a-zA-Z\s.\-']/g, '');
+        });
+    });
+
+    // Restrict phone inputs to only digits (0-9)
+    const phoneInputs = document.querySelectorAll('#id_phone');
+    phoneInputs.forEach(function (input) {
+        input.addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
     });
 
     // Booking form enhancements

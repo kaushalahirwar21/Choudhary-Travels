@@ -39,12 +39,16 @@ class BookingForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Your full name',
                 'required': True,
+                'pattern': "^[a-zA-Z\\s\\.\\-\\']+$",
+                'title': 'Name must contain only alphabets and spaces.',
             }),
             'phone': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': '10-digit mobile number',
                 'maxlength': '10',
                 'required': True,
+                'pattern': '^[6-9]\\d{9}$',
+                'title': 'Please enter a valid 10-digit Indian mobile number starting with 6-9.',
             }),
             'email': forms.EmailInput(attrs={
                 'class': 'form-control',
@@ -168,23 +172,34 @@ class BookingForm(forms.ModelForm):
         
         return cleaned
 
+    def clean_customer_name(self):
+        """Validate customer name: only letters, spaces, dots, hyphens, and apostrophes."""
+        name = self.cleaned_data.get('customer_name', '').strip()
+        if not name:
+            return name
+        
+        import re
+        if not re.match(r"^[a-zA-Z\s\.\-\']+$", name):
+            raise ValidationError('Name must contain only alphabets and spaces.')
+        return name
+
     def clean_phone(self):
-        """Validate Indian mobile number (10 digits, starts with 6-9)."""
+        """Validate Indian mobile number (10 digits, starts with 6-9, only digits)."""
         phone = self.cleaned_data.get('phone', '').strip()
         
         if not phone:
             return phone
+            
+        if not phone.isdigit():
+            raise ValidationError('Phone number must contain only digits (0-9).')
         
-        # Remove any non-digit characters
-        phone_digits = ''.join(filter(str.isdigit, phone))
+        if len(phone) != 10:
+            raise ValidationError('Phone number must be exactly 10 digits.')
         
-        if len(phone_digits) != 10:
-            raise ValidationError('Phone number must be 10 digits.')
+        if phone[0] not in '6789':
+            raise ValidationError('Phone number must start with 6, 7, 8, or 9.')
         
-        if phone_digits[0] not in '6789':
-            raise ValidationError('Invalid Indian mobile number.')
-        
-        return phone_digits
+        return phone
 
     def clean_passengers(self):
         """Validate passenger count."""
@@ -281,6 +296,8 @@ class ContactForm(forms.ModelForm):
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Your name',
+                'pattern': "^[a-zA-Z\\s\\.\\-\\']+$",
+                'title': 'Name must contain only alphabets and spaces.',
             }),
             'email': forms.EmailInput(attrs={
                 'class': 'form-control',
@@ -289,6 +306,9 @@ class ContactForm(forms.ModelForm):
             'phone': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Phone number (optional)',
+                'maxlength': '10',
+                'pattern': '^[6-9]\\d{9}$',
+                'title': 'Please enter a valid 10-digit Indian mobile number starting with 6-9.',
             }),
             'subject': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -304,3 +324,32 @@ class ContactForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['phone'].required = False
+
+    def clean_name(self):
+        """Validate name: only letters, spaces, dots, hyphens, and apostrophes."""
+        name = self.cleaned_data.get('name', '').strip()
+        if not name:
+            return name
+        
+        import re
+        if not re.match(r"^[a-zA-Z\s\.\-\']+$", name):
+            raise ValidationError('Name must contain only alphabets and spaces.')
+        return name
+
+    def clean_phone(self):
+        """Validate Indian mobile number (10 digits, starts with 6-9, only digits)."""
+        phone = self.cleaned_data.get('phone', '').strip()
+        
+        if not phone:
+            return phone
+            
+        if not phone.isdigit():
+            raise ValidationError('Phone number must contain only digits (0-9).')
+        
+        if len(phone) != 10:
+            raise ValidationError('Phone number must be exactly 10 digits.')
+        
+        if phone[0] not in '6789':
+            raise ValidationError('Phone number must start with 6, 7, 8, or 9.')
+        
+        return phone
